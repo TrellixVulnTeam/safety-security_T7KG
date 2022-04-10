@@ -1,0 +1,67 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="check_your_answers_pre_declaration" method="post">
+        <a href="define_weight" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <h1 class="govuk-heading-l">What is the total gross weight of the goods?</h1>
+
+          <p class="govuk-body">Tell us the weight of the goods including the packaging. This figure should exclude the weight of the carrier's handling equipment.</p>
+
+          <div class="govuk-form-group">
+            <label class="govuk-label" for="weight">
+              Enter weight
+            </label>
+            <div class="govuk-input__wrapper">
+              <input class="govuk-input govuk-input--width-5" id="weight" name="weight-of-goods" type="text" spellcheck="false">
+              <div class="govuk-input__suffix" aria-hidden="true">kg</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

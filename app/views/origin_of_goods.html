@@ -1,0 +1,104 @@
+
+{% extends "layout.html" %}
+
+{% block header %}
+  <link rel="stylesheet" href="/public/autocomplete/location-autocomplete.min.css"/>
+  {# Set serviceName in config.js. #}
+  {{ govukHeader({
+    homepageUrl: "/",
+    serviceName: serviceName,
+    serviceUrl: "/",
+    containerClasses: "govuk-width-container",
+    navigation: [
+      {
+        href: "/",
+        text: "Sign out"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="route_place_of_loading" method="post" onsubmit="return redirect()">
+        <a class="govuk-back-link" onclick="history.back()">Back</a>
+
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <span class="govuk-caption-l">Route details</span>
+            <h1 class="govuk-heading-l">Where will the goods begin their journey?</h1>
+        </legend>
+
+
+        <!-- <p class="govuk-body">This is where the goods begin their journey.</p> -->
+
+        <!-- <div class="govuk-inset-text">
+          Check if:
+          <ul class="govuk-list" style="margin-top:10px">
+            <li>
+              <a class="govuk-link" href="https://www.gov.uk/guidance/check-your-goods-meet-the-rules-of-origin" target="_blank">the goods meet the rules of origin (opens in new tab)</a>
+            </li>
+            <li>
+              <a class="govuk-link" href="https://www.gov.uk/government/news/less-than-a-month-until-full-customs-controls-are-introduced" target="_blank">any import controls are affected (opens in new tab)</a>
+            </li>
+            <li>
+              <a class="govuk-link" href="https://www.gov.uk/guidance/check-if-you-can-delay-customs-duty-and-import-vat" target="_blank">duty on the goods can be delayed (opens in new tab)</a>
+            </li>
+          </ul>
+        </div> -->
+
+        <input id="origin-country" name="origin-country-departure" style="visibility:hidden">
+        <div class="govuk-form-group">
+          <label for="my-autocomplete" class="govuk-label" for="three-quarters">
+            Country of departure
+          </label>
+            <div class="govuk-body">
+              <select id="location-autocomplete" >
+                <option value="territory:AE-AZ"></option>
+                <option value="country:AF">Afghanistan</option>
+                <option value="country:AE-AJ">Ajman</option>
+              </select>
+
+              <script type="text/javascript" src="/public/autocomplete/location-autocomplete.min.js"></script>
+
+              <script type="text/javascript">
+                openregisterLocationPicker({
+                  selectElement: document.getElementById('location-autocomplete'),
+                  url: '/public/autocomplete/location-autocomplete-graph.json'
+                })
+              </script>
+            </div>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+    </div>
+  </div>
+  <script>
+  function redirect(){
+     document.getElementById("origin-country").value = document.getElementById("location-autocomplete").value
+
+  }
+
+</script>
+{% endblock %}

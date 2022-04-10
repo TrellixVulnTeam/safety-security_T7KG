@@ -1,0 +1,161 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="" method="post" id="transport-docs-form" onsubmit="return redirectPage()">
+        <a href="transport_contract_ref_numbers" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Transport details</span>
+              <h1 class="govuk-fieldset__heading">Consignment documents</h1>
+            <p class="govuk-body">Add, remove or change a document relating to your consignment.</p>
+
+
+            <h1 class="govuk-heading-m">You have added 2 documents below</h1>
+            <div class="govuk-form-group">
+              <dl class="hmrc-list-with-actions hmrc-list-with-actions--short">
+                <div class="hmrc-list-with-actions__item">
+                  <dt class="hmrc-list-with-actions__name">
+                    {{ data['contracts-ref'] }}
+                    <span style="color:	#505a5f">{{ data['document-reference-number'] }} </span>
+
+                  </dt>
+                  <dt class="hmrc-list-with-actions__name">
+
+                  </dt>
+
+                  <div class="hmrc-list-with-actions__actions">
+                    <dd class="hmrc-list-with-actions__action">
+                      <a class="govuk-link" href="#">
+                        <span aria-hidden="true">Change</span>
+                        <span class="govuk-visually-hidden">Change document A</span>
+                      </a>
+                    </dd>
+                    <dd class="hmrc-list-with-actions__action">
+                      <a class="govuk-link" href="#">
+                        <span aria-hidden="true">Remove</span>
+                        <span class="govuk-visually-hidden">Remove document A from the list</span>
+                      </a>
+                    </dd>
+                  </div>
+                </div>
+
+                <div class="hmrc-list-with-actions__item">
+                  <dt class="hmrc-list-with-actions__name">
+                    {{ data['contracts-ref-2'] }}
+                    <span style="color:	#505a5f">{{ data['document-reference-number_2'] }} </span>
+
+                  </dt>
+                  <dt class="hmrc-list-with-actions__name">
+
+                  </dt>
+
+                  <div class="hmrc-list-with-actions__actions">
+                    <dd class="hmrc-list-with-actions__action">
+                      <a class="govuk-link" href="#">
+                        <span aria-hidden="true">Change</span>
+                        <span class="govuk-visually-hidden">Change document A</span>
+                      </a>
+                    </dd>
+                    <dd class="hmrc-list-with-actions__action">
+                      <a class="govuk-link" href="#">
+                        <span aria-hidden="true">Remove</span>
+                        <span class="govuk-visually-hidden">Remove document A from the list</span>
+                      </a>
+                    </dd>
+                  </div>
+                </div>
+              </dl>
+
+            </div>
+
+              <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+                  <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
+                    Do you need to add another document?
+                  </legend>
+                  <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="" name="add-another-doc" type="radio" value="#">
+                      <label class="govuk-label govuk-radios__label" for="add-another">
+                        Yes
+                      </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="" name="add-another-doc" type="radio" value="transportation_add_seals">
+                      <label class="govuk-label govuk-radios__label" for="add-another-2">
+                        No
+                      </label>
+                    </div>
+                  </div>
+
+                </fieldset>
+              </div>
+
+
+
+          </fieldset>
+        </div>
+
+        <input type="hidden" name="mode-of-transport">
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    function redirectPage() {
+      let checked = false;
+      document.getElementsByName("add-another-doc").forEach((x) => {
+        if(x.checked) {
+          document.getElementById("transport-docs-form").action = x.value;
+          checked = true;
+        }
+      })
+      return checked;
+    }
+
+  </script>
+
+
+{% endblock %}

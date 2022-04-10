@@ -1,0 +1,132 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="consignors_check_your_answers" method="post" id="login" onsubmit="return redirect()">
+        <a href="item_identify_consignor.html"govuk-back-link">Back</a>
+
+        <div class="govuk-form-group" style="margin-top:40px">
+
+
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Consignors</span>
+              <h1 class="govuk-fieldset__heading">
+                What is the consignor’s GB EORI number?
+              </h1>
+            </legend>
+
+            <div id="event-name-hint" class="govuk-hint">
+              This will start with GB, followed by 12 or 15 numbers (for example, GB123456789000).
+            </div>
+
+            <details class="govuk-details" data-module="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  How to find an EORI number
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                To find a consignor's EORI number, use this link <a href="https://www.gov.uk/check-eori-number" class="govuk-link" target="_blank">Check an EORI number (opens in a new tab)</a>.
+              </div>
+            </details>
+
+          </fieldset>
+
+          <div class="govuk-form-group">
+            <div class="govuk-input__wrapper">
+              <div class="govuk-input__prefix" aria-hidden="true">GB</div>
+                  <input class="govuk-input govuk-input--width-10" id="item-consignor-eori-entry" name="item-consignor-eori-entry" type="text" spellcheck="false" >
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+        <input id="item-consignor-eori" name="item-consignor-eori" style="display:none">
+      </form>
+    </div>
+  </div>
+  <script>
+
+    function redirect() {
+      let elementList = "{{ data['item-consignor-eori'] }}"
+      let index = "{{ data['item-consignor-eori-index'] }}"
+  
+      if (index < elementList.length && index != "") {
+  
+        let changeElement = (elementList, index, elementToAdd) => {
+          elementList[index] = elementToAdd
+          return elementList
+        }
+        return updateElementList(changeElement, elementList, index);
+      } else {
+  
+        let addElement = (elements, index, elementToAdd) => {
+          if (!elements.includes(elementToAdd)) {
+            elements.push(elementToAdd)
+          }
+          return elements 
+        }
+        return updateElementList(addElement, elementList, index);
+      }
+    }
+  
+    function updateElementList(updateList, elementList, index) {
+      let elementToAdd = document.getElementById('item-consignor-eori-entry').value
+  
+      let isElementPopulated = !(elementToAdd == "" || elementToAdd == null)
+  
+      if (isElementPopulated) {
+        let elements = elementList == "" ? Array() : elementList.split(",")
+  
+  
+        elements = updateList(elements, index, elementToAdd)
+  
+        document.getElementById("item-consignor-eori").value = elements
+  
+      }
+      return isElementPopulated
+    }
+  
+    window.onload = function () {
+      let elementList = getList("{{ data['item-consignor-eori'] }}")
+      let index = "{{ data['item-consignor-eori-index'] }}"
+  
+      if (index < elementList.length && index != "") {
+        document.getElementById('item-consignor-eori-entry').value = elementList[index]
+      }
+    };
+    
+    function getList(typeOfList) {
+      if (typeOfList == "") {
+        return Array()
+      } else {
+        return typeOfList.split(",")
+      }
+    }
+  
+  </script>
+{% endblock %}

@@ -1,0 +1,94 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="carrier_paid_options" method="post" id="form-dangerous-goods" onsubmit="return redirect()">
+        <a href="item_add_doc.html" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group" style="margin-top:40px">
+
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Goods details</span>
+              <h1 class="govuk-fieldset__heading">
+                Is your item classed as dangerous goods?
+              </h1>
+            </legend>
+            <div id="changed-name-hint" class="govuk-hint">
+                You must tell us if your goods item might be dangerous, so that all organisations in the supply chain, including the emergency services, understand all the risks involved.
+            </div>
+
+
+            <details class="govuk-details" data-module="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  Dangerous goods classifications
+                </span>
+              </summary>
+              <div class="govuk-details__text govuk-!-width-full">
+                  Any transportation of your goods must meet the
+                 <a href="https://www.gov.uk/guidance/moving-dangerous-goods" target="_blank">rules and regulations around moving</a> and
+                 <a href="https://www.gov.uk/government/collections/transporting-dangerous-goods" target="_blank"> transporting dangerous goods</a>.
+               </div>
+            </details>
+
+
+            <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="yes" name="item-dangerous" type="radio" data-value="yes" value="item_what_dangerous_goods">
+                <label class="govuk-label govuk-radios__label" for="dangerous_goods">
+                  Yes
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="no" name="item-dangerous" type="radio" data-value="no" value="carrier_paid_options">
+                <label class="govuk-label govuk-radios__label" for="dangerous_goods">
+                  No
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+        <input type="hidden" name="item_dangerous_goods">
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+
+
+
+      </form>
+    </div>
+  </div>
+  <script>
+    function redirect() {
+      let checked = false;
+      document.getElementsByName("item-dangerous").forEach(x => {
+        if (x.checked) {
+          document.getElementById("form-dangerous-goods").action = x.value
+          checked = true
+        }
+      })
+      return checked
+    }
+  </script>
+{% endblock %}

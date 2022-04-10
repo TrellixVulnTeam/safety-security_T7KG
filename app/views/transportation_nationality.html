@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+
+
+{% block header %}
+  <link rel="stylesheet" href="/public/autocomplete/location-autocomplete.min.css"/>
+  {# Set serviceName in config.js. #}
+  {{ govukHeader({
+    homepageUrl: "/",
+    serviceName: serviceName,
+    serviceUrl: "/",
+    containerClasses: "govuk-width-container"
+  }) }}
+{% endblock %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action=""
+       method="post" id="mode-of-transport-form" onsubmit="return redirect()">
+        <a href="" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Transport details</span>
+              <h1 class="govuk-fieldset__heading">
+                The active mode of transport carrying your goods is registered in which country?
+              </h1>
+            </legend>
+
+            <label class="govuk-label" for="width-10">
+              Country
+            </label>
+            <input type="text" name="temp-transport-mode" value=" {{data['transport-mode']}}" style="display:none" id="temp-transport-mode-id">
+
+            <div class="govuk-body">
+              <select id="location-autocomplete">
+                <option value="territory:AE-AZ"></option>
+                <option value="country:AF">Afghanistan</option>
+                <option value="country:AE-AJ">Ajman</option>
+              </select>
+
+
+              <script type="text/javascript" src="/public/autocomplete/location-autocomplete.min.js"></script>
+
+              <script type="text/javascript">
+                openregisterLocationPicker({
+                  selectElement: document.getElementById('location-autocomplete'),
+                  url: '/public/autocomplete/location-autocomplete-graph.json'
+                });
+              </script>
+
+            </div>
+
+          </fieldset>
+        </div>
+
+            <input type="hidden" id="transport-nationality" name="transport-nationality">
+            <button class="govuk-button" data-module="govuk-button">
+              Save and continue
+            </button>
+          </form>
+
+
+            <script>
+              function redirect(){
+                document.getElementById("transport-nationality").value = document.getElementById("location-autocomplete").value
+                let transportMode = document.getElementById("temp-transport-mode-id").value
+                document.getElementById("mode-of-transport-form").action = transportMode
+              }
+            </script>
+    </div>
+  </div>
+
+{% endblock %}

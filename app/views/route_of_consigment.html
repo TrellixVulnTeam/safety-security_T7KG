@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="/public/autocomplete/location-autocomplete.min.css" />
+{# Set serviceName in config.js. #}
+{{ govukHeader({
+homepageUrl: "/",
+serviceName: serviceName,
+serviceUrl: "/",
+containerClasses: "govuk-width-container",
+navigation: [
+{
+href: "/",
+text: "Sign out"
+}
+]
+}) }}
+{% endblock %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="add_route_of_cosignment" method="post" onsubmit="return redirect()">
+      <a href="goods_passing_other_countries" class="govuk-back-link">Back</a>
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <span class="govuk-caption-l">Route details</span>
+        <h1 class="govuk-heading-l">Which country will the consignment pass through?</h1>
+      </legend>
+
+      <p class="govuk-body">If your consignment stops in or passes through any other countries after leaving the
+        departure country and reaching the arrival country, select them here.</p>
+
+
+      <input id="consignment-country" name="consignment-country" style="display:none">
+      <label for="my-autocomplete" class="govuk-label" for="three-quarters">
+        Country
+      </label>
+      <div class="govuk-body">
+        <select id="location-autocomplete">
+          <option value="territory:AE-AZ"></option>
+          <option value="country:AF">Afghanistan</option>
+          <option value="country:AE-AJ">Ajman</option>
+        </select>
+
+        <script type="text/javascript" src="/public/autocomplete/location-autocomplete.min.js"></script>
+
+        <script type="text/javascript">
+          openregisterLocationPicker({
+            selectElement: document.getElementById('location-autocomplete'),
+            url: '/public/autocomplete/location-autocomplete-graph.json'
+          });
+        </script>
+      </div>
+
+      <button class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+    </form>
+
+  </div>
+</div>
+
+<script>
+
+  function redirect() {
+    let elementList = "{{ data['consignment-country'] }}"
+    let index = "{{ data['consignment-country-index'] }}"
+
+    if (index < elementList.length && index != "") {
+
+      let changeElement = (elementList, index, elementToAdd) => {
+        elementList[index] = elementToAdd
+        return elementList
+      }
+      return updateElementList(changeElement, elementList, index);
+    } else {
+
+      let addElement = (elements, index, elementToAdd) => {
+        if (!elements.includes(elementToAdd)) {
+          elements.push(elementToAdd)
+        }
+        return elements
+      }
+      return updateElementList(addElement, elementList, index);
+    }
+  }
+
+  function updateElementList(updateList, elementList, index) {
+    let elementToAdd = document.getElementById('location-autocomplete').value
+
+    let isElementPopulated = !(elementToAdd == "" || elementToAdd == null)
+
+    if (isElementPopulated) {
+      let elements = elementList == "" ? Array() : elementList.split(",")
+
+
+      elements = updateList(elements, index, elementToAdd)
+
+      document.getElementById("consignment-country").value = elements
+
+    }
+    return isElementPopulated
+  }
+
+  window.onload = function () {
+    let elementList = getList("{{ data['consignment-country'] }}")
+    let index = "{{ data['consignment-country-index'] }}"
+
+    if (index < elementList.length && index != "") {
+      document.getElementById('location-autocomplete').value = elementList[index]
+    }
+  };
+  
+  function getList(typeOfList) {
+    if (typeOfList == "") {
+      return Array()
+    } else {
+      return typeOfList.split(",")
+    }
+  }
+
+</script>
+{% endblock %}

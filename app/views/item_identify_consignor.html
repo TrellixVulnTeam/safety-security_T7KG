@@ -1,0 +1,77 @@
+
+{% extends "layout.html" %}
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="item_consignor_eori" method="post" id="form-identify-consignor" onsubmit="return redirect()">
+        <a href="task_list_no_carrier_completed" govuk-back-link">Back</a>
+
+        <div class="govuk-form-group" style="margin-top:40px">
+
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Consignors</span>
+              <h1 class="govuk-heading-l">How do you want to identify the consignor?</h1>
+            </legend>
+
+            <div id="event-name-hint" class="govuk-hint">
+              The best way to find a company is by their EORI (Economic Operators Registration and Identification) number.
+
+              If you don’t know the EORI number, you must provide the company’s name and address.
+            </div>
+
+          </fieldset>
+
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="identify-consignor-eori" name="identify-consignor" type="radio" data-value="yes" value="item_consignor_eori">
+              <label class="govuk-label govuk-radios__label" for="identify_consigor_EORI">
+                I’ll provide the consignor’s GB EORI number
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="identify-consignor-name" name="identify-consignor" type="radio" data-value="no" value="item_consignor_name">
+              <label class="govuk-label govuk-radios__label" for="identify_consigor_name_address">
+                I’ll provide the consignor’s name and address
+              </label>
+            </div>
+          </div>
+
+        </div>
+        <input type="hidden" name="item_identify_consignor">
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+    </div>
+  </div>
+  <script>
+    function redirect() {
+      let checked = false;
+      document.getElementsByName("identify-consignor").forEach(x => {
+        if (x.checked) {
+          document.getElementById("form-identify-consignor").action = x.value
+          checked = true
+        }
+      })
+      return checked
+    }
+  </script>
+{% endblock %}

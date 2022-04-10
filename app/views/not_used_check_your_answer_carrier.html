@@ -1,0 +1,102 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav id="secondary-nav" class="hmrc-account-menu" aria-label="Account" data-module="hmrc-account-menu">
+    <a href="index" class="hmrc-account-menu__link hmrc-account-menu__link--home hmrc-account-menu__link--active">
+      <span class="hmrc-account-icon hmrc-account-icon--home">
+        Account home </span>
+    </a>
+
+    <a href="#" class="hmrc-account-menu__link hmrc-account-menu__link--menu js-hidden js-visible" tabindex="-1" aria-hidden="true" aria-expanded="false">
+      Account menu </a>
+
+    <ul class="hmrc-account-menu__main js-hidden">
+
+
+      <li>
+        <a href="#sign-out" class="hmrc-account-menu__link">
+          Sign out </a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <div class="govuk-grid-row">
+    <nav class="hmrc-language-select" aria-label="Language switcher">
+      <ul class="hmrc-language-select__list">
+        <li class="hmrc-language-select__list-item">
+          <span aria-current="true">English</span>
+        </li>
+        <li class="hmrc-language-select__list-item">
+          <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+            <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+            <span aria-hidden="true">Cymraeg</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="govuk-width-container">
+
+    <form class="form" action="task_list_with_carrier_completed" method="post" id="carrier">
+      <a href="carrier_eori" class="govuk-back-link">Back</a>
+
+      <main class="govuk-main-wrapper " id="main-content" role="main">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds-from-desktop">
+
+            <h1 class="govuk-heading-l">Check your answer</h1>
+
+            <h2 class="govuk-heading-m">Carrier details</h2>
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  EORI number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  GB{{ data['carrier_eori'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+            </dl>
+
+            <h2 class="govuk-heading-m">Save your answers</h2>
+
+            <p class="govuk-body">Your answers must be as accurate and complete as you can make them. </p>
+
+            <button class="govuk-button" data-module="govuk-button">
+              Save and continue
+            </button>
+          </form>
+          </div>
+          </div>
+      </main>
+    </div>
+  </div>
+
+
+
+{% endblock %}

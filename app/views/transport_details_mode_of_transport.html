@@ -1,0 +1,135 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav id="secondary-nav" class="hmrc-account-menu" aria-label="Account" data-module="hmrc-account-menu">
+    <a href="index" class="hmrc-account-menu__link hmrc-account-menu__link--home hmrc-account-menu__link--active">
+      <span class="hmrc-account-icon hmrc-account-icon--home">
+        Account home </span>
+    </a>
+
+    <a href="#" class="hmrc-account-menu__link hmrc-account-menu__link--menu js-hidden js-visible" tabindex="-1" aria-hidden="true" aria-expanded="false">
+      Account menu </a>
+
+    <ul class="hmrc-account-menu__main js-hidden">
+
+
+      <li>
+        <a href="#sign-out" class="hmrc-account-menu__link">
+          Sign out </a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <div class="govuk-grid-row">
+
+
+    <nav class="hmrc-language-select" aria-label="Language switcher">
+      <ul class="hmrc-language-select__list">
+        <li class="hmrc-language-select__list-item">
+          <span aria-current="true">English</span>
+        </li>
+        <li class="hmrc-language-select__list-item">
+          <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+            <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+            <span aria-hidden="true">Cymraeg</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="transport_details" method="post" id="carrier">
+          <input type="hidden" id="yes" value="yes" name="changed-transport">
+        <a href="same_type_border_transport.html" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">transport_contract_ref_numbers
+                What is the mode of transport?
+              </h1>
+            </legend>
+            <div id="changed-name-hint" class="govuk-hint">
+              Tell us how your goods will enter Great Britain.
+            </div>
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="mode-of-transport" name="transport-details-mode-of-transport" type="radio" data-value="RoRo - accompanied (self-drive)" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}">
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport">
+                  RoRo - accompanied (self-drive)
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="mode-of-transport-2" name="transport-details-mode-of-transport" type="radio" data-value="RoRo - unaccompanied" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}">
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport-2">
+                  RoRo - unaccompanied
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="mode-of-transport-3" name="transport-details-mode-of-transport" type="radio" data-value="Maritime" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}">
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport-3">
+                  Maritime
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="mode-of-transport-4" name="transport-details-mode-of-transport" type="radio" data-value="Rail" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}">
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport-4">
+                  Rail
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="mode-of-transport-4" name="transport-details-mode-of-transport" type="radio"  data-value="Road  (including Channel Tunnel shuttle service)" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}">
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport-4">
+                  Road  (including Channel Tunnel shuttle service)
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="mode-of-transport-5" name="transport-details-mode-of-transport" type="radio" data-value="Air" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}">
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport-5">
+                  Air
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+
+        <input type="hidden" name="mode-of-transport">
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

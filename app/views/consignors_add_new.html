@@ -1,0 +1,180 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="" method="post" id="form-route-add-new-loading-place"
+      onsubmit="return redirectPage()">
+      <a href="route_place_of_loading" class="govuk-back-link">Back</a>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Consignors</span>
+            <h1 class="govuk-fieldset__heading">Your consignor</h1>
+          </legend>
+
+          <p class="govuk-body">Details of your consignor are shown below. You can add, change or remove a consignor if
+            required.</p>
+
+
+          <h1 class="govuk-heading-m">You have added 1 consignor below</h1>
+          <div class="govuk-form-group">
+            <dl class="hmrc-list-with-actions hmrc-list-with-actions--short" id="element-list">
+
+            </dl>
+
+          </div>
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
+                Do you need to add another consignor?
+              </legend>
+              <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="add-another" name="add-another_unloading_place" type="radio"
+                    value="item_identify_consignor">
+                  <label class="govuk-label govuk-radios__label" for="add-another">
+                    Yes
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="add-another-2" name="add-another_unloading_place" type="radio"
+                    value="task_list_with_carrier_fully_completed">
+                  <label class="govuk-label govuk-radios__label" for="add-another-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <input id="item-consignor-eori-index" name="item-consignor-eori-index" style="display:none"> 
+            </fieldset>
+        </fieldset>
+      </div>
+
+      <input type="hidden" name="mode-of-transport">
+      <button class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+    </form>
+
+    <script>
+      function redirectPage() {
+        let checked = false;
+        document.getElementsByName("add-another_unloading_place").forEach((x) => {
+          if (x.checked) {
+            document.getElementById("form-route-add-new-loading-place").action = x.value;
+            checked = true;
+          }
+        })
+        return checked;
+      }
+      window.onload = function () {
+
+        displayList()
+
+      }
+
+      function displayList() {
+
+        let elementList = getList("{{data['item-consignor-eori']}}")
+
+
+
+        let elementInnerHtml = ""
+        var counter = 0;
+        elementList.forEach(element => {
+
+          elementInnerHtml = elementInnerHtml.concat(getHtmlElement(element, counter))
+          counter++;
+        })
+
+
+        let elementListDOM = document.getElementById("element-list")
+        elementListDOM.innerHTML = elementInnerHtml
+
+      }
+
+      function getHtmlElement(element, counter) {
+        const redirectPageName = (stringContainsNumber(element)) ? "item_consignor_eori" : "item_consignor_name"
+        const nameProperty = "item-consignor-eori-index"
+        const id = `item-consignor-eori-index-${counter}`
+
+        let htmlElement = `<div class="hmrc-list-with-actions__item">
+          <dt class="hmrc-list-with-actions__name">
+            ${element}
+          </dt>
+          <div class="hmrc-list-with-actions__actions">
+            <dd class="hmrc-list-with-actions__action">
+              <a class="govuk-link" href="#" id="${id}" onclick="return change(this.id, ${counter}, '${element}')" >
+                <span aria-hidden="true">Change</span>
+                <span class="govuk-visually-hidden">Change Sydney Russell</span>
+              </a>
+            </dd>
+            <dd class="hmrc-list-with-actions__action">
+              <a class="govuk-link" href="${redirectPageName}">
+                <span aria-hidden="true">Remove</span>
+                <span class="govuk-visually-hidden">Remove Sydney Russell from the list</span>
+              </a>
+            </dd>
+          </div>
+        </div>`
+
+        return htmlElement
+
+      }
+      function stringContainsNumber(_string) {
+        return /\d/.test(_string);
+      }
+      function getList(typeOfList) {
+        if (typeOfList == "") {
+          return Array()
+        } else {
+          return typeOfList.split(",")
+        }
+      }
+
+      function change(id, counter, element) {
+        const formId = "form-route-add-new-loading-place"
+        const formIdRedirect = (stringContainsNumber(element)) ? "item_consignor_eori" : "item_consignor_name"
+        let form = document.getElementById(formId)
+
+        form.action = formIdRedirect
+        document.getElementById("item-consignor-eori-index").value = counter
+        form.submit()
+        return true;
+      }
+
+    </script>
+
+
+
+
+
+
+
+
+
+  </div>
+</div>
+
+{% endblock %}

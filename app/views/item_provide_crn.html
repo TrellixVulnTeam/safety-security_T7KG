@@ -1,0 +1,77 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav id="secondary-nav" class="hmrc-account-menu" aria-label="Account" data-module="hmrc-account-menu">
+    <a href="index.html" class="hmrc-account-menu__link hmrc-account-menu__link--home hmrc-account-menu__link--active">
+      <span class="hmrc-account-icon hmrc-account-icon--home">
+        Account home </span>
+    </a>
+
+    <a href="#" class="hmrc-account-menu__link hmrc-account-menu__link--menu js-hidden js-visible" tabindex="-1" aria-hidden="true" aria-expanded="false">
+      Account menu </a>
+
+    <ul class="hmrc-account-menu__main js-hidden">
+
+
+      <li>
+        <a href="#sign-out" class="hmrc-account-menu__link">
+          Sign out </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+
+    <nav class="hmrc-language-select" aria-label="Language switcher">
+      <ul class="hmrc-language-select__list">
+        <li class="hmrc-language-select__list-item">
+          <span aria-current="true">English</span>
+        </li>
+        <li class="hmrc-language-select__list-item">
+          <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+            <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+            <span aria-hidden="true">Cymraeg</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="item_add_doc_after_crn" method="post">
+        <a href="item_can_you_provide_crn" class="govuk-back-link">Back</a>
+        <span class="govuk-caption-l">item 1</span>
+        <h1 class="govuk-heading-l">Provide a Commercial Reference Number (CRN)</h1>
+
+        <div class="govuk-form-group">
+          <!-- <div id="event-name-hint" class="govuk-hint">
+            This is optional
+          </div> -->
+          <input class="govuk-input govuk-!-width-three-quarters" id="provide_crn" name="commercial-reference-number" type="text" value="{{ data['commercial-reference-number'] }}">
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

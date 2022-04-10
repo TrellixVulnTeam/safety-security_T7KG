@@ -1,0 +1,304 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+    <div class="govuk-width-container">
+
+    <form class="form" action="ens_complete" method="post" id="carrier">
+      <a href="add_a_payment_method.html" class="govuk-back-link">Back</a>
+
+      <main class="govuk-main-wrapper " id="main-content" role="main">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds-from-desktop">
+
+            <h1 class="govuk-heading-l">Check your answers and submit declaration</h1>
+
+            <h2 class="govuk-heading-m">
+              Pre-declaration
+              <p class="govuk-body" style="margin-top:10px"><a href="#" class="govuk-link" rel="noreferrer noopener">Make changes to this section</a></p>
+            </h2>
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  ENS title
+                </dt>
+
+                <dd class="govuk-summary-list__value">
+                   {{ data['ens-name'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Location of declaration completion
+                </dt>
+
+                <dd class="govuk-summary-list__value">
+                   {{ data['origin-country'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Your company is carrier
+                </dt>
+
+                <dd class="govuk-summary-list__value">
+                  {% if (data['is-carrier'] == "can_you_provide_crn") %}
+                  Yes
+                  {% else %}
+                  No
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Commercial reference number
+                </dt>
+
+                <dd class="govuk-summary-list__value">
+                   {{ data['commercial-reference-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Give gross weight
+                </dt>
+
+                <dd class="govuk-summary-list__value">
+                   {{ data['item-weight'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Gross weight
+                </dt>
+
+                <dd class="govuk-summary-list__value">
+                   {{ data['weight-of-goods'] }}kg
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+            </dl>
+
+            <h2 class="govuk-heading-m">
+              Route details
+              <p class="govuk-body" style="margin-top:10px"><a href="#" class="govuk-link" rel="noreferrer noopener">Make changes to this section</a></p>
+            </h2>
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Country of loading
+                </dt>
+
+                <dd class="govuk-summary-list__value">
+                   {{ data['origin-country'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  First country on route
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['consignment-country'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Customs office
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['port-of-arrival'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Date of arrival
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['consignment-arrived-day'] }}/{{ data['consignment-arrived-month']}}/{{ data['consignment-arrived-year']}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Time of arrival
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['consignment-arrived-hour']}}:{{ data['consignment-arrived-minute'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                </dd>
+              </div>
+            </dl>
+
+            <h2 class="govuk-heading-m">
+              Transport details
+              <p class="govuk-body" style="margin-top:10px"><a href="#" class="govuk-link" rel="noreferrer noopener">Make changes to this section</a></p>
+            </h2>
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Mode of transport
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['vehicle-registration-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Vehicle registration number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['vehicle-registration-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Registered trailer number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['registered-trailer-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                </dd>
+              </div>
+            </dl>
+
+            <h2 class="govuk-heading-m">
+              Consignor details
+              <p class="govuk-body" style="margin-top:10px"><a href="consignors_check_your_answers" class="govuk-link" rel="noreferrer noopener">Make changes to this section</a></p>
+            </h2>
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  EORI number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  GB{{ data['item-consignor-eori'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+            </dl>
+
+            <h2 class="govuk-heading-m">
+              Consignees and notified parties details
+              <p class="govuk-body" style="margin-top:10px"><a href="consignees_notified_parties_check_your_answers" class="govuk-link" rel="noreferrer noopener">Make changes to this section</a></p>
+            </h2>
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  EORI number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  GB{{ data['item-consignee-eori'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+
+                </dd>
+              </div>
+            </dl>
+
+            <h2 class="govuk-heading-m">
+              Goods details
+              <p class="govuk-body" style="margin-top:10px"><a href="check_your_answers_item1" class="govuk-link" rel="noreferrer noopener">Make changes to this section</a></p>
+            </h2>
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Commodity code
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['item-commodity-name-code'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+            </dl>
+
+
+            <h2 class="govuk-heading-m">Are you sure you want to submit this entry summary declaration?</h2>
+
+            <p class="govuk-body">Your declaration must be as complete and accurate as you can make it.
+              You can change your journey details up until the point the goods arrive at the border.
+            </p>
+
+
+
+            <button class="govuk-button" data-module="govuk-button">
+              Submit declaration
+            </button>
+          </form>
+          </div>
+          </div>
+      </main>
+    </div>
+  </div>
+
+
+
+{% endblock %}

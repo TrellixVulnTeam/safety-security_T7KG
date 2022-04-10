@@ -1,0 +1,107 @@
+
+{% extends "layout.html" %}
+
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="item_consignor_address" method="post" onsubmit="return redirect()">
+        <a href="item_identify_consignor.html" class="govuk-back-link">Back</a><br>
+
+        <div class="govuk-form-group">
+          <span class="govuk-caption-l">Consignors</span>
+          <h1 class="govuk-heading-l">Who is the consignor?</h1>
+          <p class="govuk-body">Enter the name of the company or individual sending the goods.</p>
+
+          <input class="govuk-input govuk-!-width-three-quarters" id="item-consignor-eori-entry" name="item-consignor-eori-entry" type="text">
+          <input id="item-consignor-eori" name="item-consignor-eori" style="display:none">
+
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+    </div>
+  </div>
+  <script>
+
+    function redirect() {
+      let elementList = "{{ data['item-consignor-eori'] }}"
+      let index = "{{ data['item-consignor-eori-index'] }}"
+  
+      if (index < elementList.length && index != "") {
+  
+        let changeElement = (elementList, index, elementToAdd) => {
+          elementList[index] = elementToAdd
+          return elementList
+        }
+        return updateElementList(changeElement, elementList, index);
+      } else {
+  
+        let addElement = (elements, index, elementToAdd) => {
+          if (!elements.includes(elementToAdd)) {
+            elements.push(elementToAdd)
+          }
+          return elements 
+        }
+        return updateElementList(addElement, elementList, index);
+      }
+    }
+  
+    function updateElementList(updateList, elementList, index) {
+      let elementToAdd = document.getElementById('item-consignor-eori-entry').value
+  
+      let isElementPopulated = !(elementToAdd == "" || elementToAdd == null)
+  
+      if (isElementPopulated) {
+        let elements = elementList == "" ? Array() : elementList.split(",")
+  
+  
+        elements = updateList(elements, index, elementToAdd)
+  
+        document.getElementById("item-consignor-eori").value = elements
+  
+      }
+      return isElementPopulated
+    }
+  
+    window.onload = function () {
+      let elementList = getList("{{ data['item-consignor-eori'] }}")
+      let index = "{{ data['item-consignor-eori-index'] }}"
+  
+      if (index < elementList.length && index != "") {
+        document.getElementById('item-consignor-eori-entry').value = elementList[index]
+      }
+    };
+    
+    function getList(typeOfList) {
+      if (typeOfList == "") {
+        return Array()
+      } else {
+        return typeOfList.split(",")
+      }
+    }
+  
+  </script>
+{% endblock %}

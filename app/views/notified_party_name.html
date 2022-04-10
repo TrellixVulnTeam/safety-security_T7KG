@@ -1,0 +1,105 @@
+
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="notify_party_address" method="post" onsubmit="return redirect()">
+        <a href="item_identify_consignor.html" class="govuk-back-link">Back</a><br>
+
+        <div class="govuk-form-group">
+          <span class="govuk-caption-l">Consignees and notified parties</span>
+          <h1 class="govuk-heading-l">What is the notified party’s name?</h1>
+
+          <p class="govuk-body">Enter the name of the company receiving the goods.</p>
+
+          <input class="govuk-input govuk-!-width-three-quarters" id="notified-eori-entry"  type="text">
+        </div>
+        <input id="notified-eori" name="notified-eori" style="display:none">
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+    </div>
+  </div>
+  <script>
+
+    function redirect() {
+      let elementList = "{{ data['notified-eori'] }}"
+      let index = "{{ data['notified-eori-index'] }}"
+  
+      if (index < elementList.length && index != "") {
+  
+        let changeElement = (elementList, index, elementToAdd) => {
+          elementList[index] = elementToAdd
+          return elementList
+        }
+        return updateElementList(changeElement, elementList, index);
+      } else {
+  
+        let addElement = (elements, index, elementToAdd) => {
+          if (!elements.includes(elementToAdd)) {
+            elements.push(elementToAdd)
+          }
+          return elements
+        }
+        return updateElementList(addElement, elementList, index);
+      }
+    }
+  
+    function updateElementList(updateList, elementList, index) {
+      let elementToAdd = document.getElementById('notified-eori-entry').value
+  
+      let isElementPopulated = !(elementToAdd == "" || elementToAdd == null) 
+  
+      if (isElementPopulated) {
+        let elements = elementList == "" ? Array() : elementList.split(",")
+  
+  
+        elements = updateList(elements, index, elementToAdd)
+  
+        document.getElementById("notified-eori").value = elements
+  
+      }
+      return isElementPopulated
+    }
+  
+    window.onload = function () {
+      let elementList = getList("{{ data['notified-eori'] }}")
+      let index = "{{ data['notified-eori-index'] }}"
+  
+      if (index < elementList.length && index != "") {
+        document.getElementById('notified-eori-entry').value = elementList[index]
+      }
+    };
+  
+    function getList(typeOfList) {
+      if (typeOfList == "") {
+        return Array()
+      } else {
+        return typeOfList.split(",")
+      }
+    }
+  
+  </script>
+{% endblock %}

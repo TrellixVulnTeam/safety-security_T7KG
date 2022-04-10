@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+<script>
+  console.log("hi")
+  $('input[type=radio]').on('change', function () {
+    var dataValue = $(this).attr('data-value')
+    $('input[type=hidden]').val(dataValue)
+  })
+</script>
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<nav id="secondary-nav" class="hmrc-account-menu" aria-label="Account" data-module="hmrc-account-menu">
+  <a href="#home" class="hmrc-account-menu__link hmrc-account-menu__link--home hmrc-account-menu__link--active">
+    <span class="hmrc-account-icon hmrc-account-icon--home">
+      Account home </span>
+  </a>
+
+  <a href="#" class="hmrc-account-menu__link hmrc-account-menu__link--menu js-hidden js-visible" tabindex="-1"
+    aria-hidden="true" aria-expanded="false">
+    Account menu </a>
+
+  <ul class="hmrc-account-menu__main js-hidden">
+
+    <li>
+      <a href="#sign-out" class="hmrc-account-menu__link">
+        Sign out </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="govuk-grid-row">
+
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link"
+          data-journey-click="link - click:lang-select:Cymraeg">
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="item_what_doc_type" method="post" id="form-item-add-doc" onsubmit="return redirect()">
+      <a href="item_commercial_reference_number.html" govuk-back-link">Back</a>
+
+      {% if data['item_add_doc'] == 'no' %}
+      <div><Br></Br></div>
+      <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" data-disable-auto-focus="true"
+        data-module="govuk-error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+          There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+          <ul class="govuk-list govuk-error-summary__list">
+            <li>
+              <a href="#provide_one_doc">You need to provide at least one document.</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="govuk-form-group" style="margin-top:40px">
+        <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">item 1</span>
+            <h1 class="govuk-fieldset__heading">
+              Do you need to add any documents?
+            </h1>
+          </legend>
+
+          <div id="event-name-hint" class="govuk-hint">
+          These include any documents for item 1 such as a commercial invoice, proof of origin or bill of landing.
+          </div>
+
+          {% if data['item_add_doc'] == 'no' %}
+
+          <p id="passport-issued-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> You need to provide at least one document.
+          </p>
+
+          {% endif %}
+
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="doc-type-yes" name="add-doc" type="radio" data-value="yes" value="item_what_doc_type">
+              <label class="govuk-label govuk-radios__label" for="add_doc_yes">
+                Yes
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="doc-type-no" name="add-doc" type="radio" data-value="no" value="item_dangerous_goods">
+              <label class="govuk-label govuk-radios__label" for="add_doc_no">
+                No
+              </label>
+            </div>
+          </div>
+
+        </fieldset>
+      </div>
+      <input type="hidden" name="item_add_doc">
+      <button class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+    </form>
+
+  </div>
+</div>
+<script>
+  function redirect() {
+    let checked = false;
+    document.getElementsByName("add-doc").forEach(x => {
+      if (x.checked) {
+        document.getElementById("form-item-add-doc").action = x.value
+        checked = true
+      }
+    })
+    return checked
+  }
+</script>
+{% endblock %}

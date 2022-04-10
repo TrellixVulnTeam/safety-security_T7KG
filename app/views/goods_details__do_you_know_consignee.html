@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="" method="post" onsubmit="return redirect()" id="form-goods-details-is-consignee">
+      <a href="#" class="govuk-back-link">Back</a>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Complete goods details</span>
+            <h1 class="govuk-fieldset__heading">
+              Do you know the consignee?
+            </h1>
+          </legend>
+          <div id="changed-name-hint" class="govuk-hint">
+            Tell us if you know the consignee's details.
+          </div>
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="changed-name" name="is-consignee" type="radio" value="yes">
+              <label class="govuk-label govuk-radios__label" for="changed-name">
+                Yes
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="changed-name-2" name="is-consignee" type="radio" value="no">
+              <label class="govuk-label govuk-radios__label" for="changed-name-2">
+                No
+              </label>
+            </div>
+          </div>
+          <input id="goods-item-routing" name="goods-item-routing" style="display:none">
+        </fieldset>
+      </div>
+
+
+
+
+  </div>
+</div>
+
+<button class="govuk-button" data-module="govuk-button">
+  Save and continue
+</button>
+</form>
+
+
+
+
+
+<script>
+  function redirect() {
+    let checked = false;
+    let consignee = getList("{{ data['item-consignee-eori'] }}")
+    let notifiedParty = getList("{{ data['notified-eori'] }}")
+
+    document.getElementsByName("is-consignee").forEach((x) => {
+      if (x.checked) {
+        let selectedRoutes = getList("{{data['goods-item-routing']}}")
+        document.getElementById("goods-item-routing").value = selectedRoutes
+        if (x.value == "yes") {
+          if (consignee.length > 1) {
+            document.getElementById("form-goods-details-is-consignee").action = "goods_details_your_consignees"
+           
+          } else {
+            if (selectedRoutes.length == 0) {
+              document.getElementById("form-goods-details-is-consignee").action = "goods_details_shipping_containers"
+            } else {
+           
+              document.getElementById("form-goods-details-is-consignee").action = selectedRoutes.shift()
+              document.getElementById("goods-item-routing").value = selectedRoutes
+            }
+          }
+        } else {
+          if (notifiedParty.length > 1) {
+            document.getElementById("form-goods-details-is-consignee").action = "goods_details_your_notified_parties"
+          } else {
+            if (selectedRoutes.length == 0) {
+              document.getElementById("form-goods-details-is-consignee").action = "goods_details_shipping_containers"
+            } else {
+              document.getElementById("form-goods-details-is-consignee").action = selectedRoutes.shift()
+              document.getElementById("goods-item-routing").value = selectedRoutes
+            }
+          }
+        }
+
+
+        checked = true;
+      }
+    })
+    return checked;
+
+  }
+  function getList(typeOfList) {
+    if (typeOfList == "") {
+      return Array()
+    } else {
+      return typeOfList.split(",")
+    }
+  }
+</script>
+
+
+
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,193 @@
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+{% block header %}
+<link rel="stylesheet" href="/public/autocomplete/location-autocomplete.min.css" />
+{# Set serviceName in config.js. #}
+{{ govukHeader({
+homepageUrl: "/",
+serviceName: serviceName,
+serviceUrl: "/",
+containerClasses: "govuk-width-container"
+}) }}
+{% endblock %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="" method="post" onsubmit="return addCountry()">
+      <a href="add_route_of_cosignment" class="govuk-back-link">Back</a>
+
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <span class="govuk-caption-l">Complete route details</span>
+        <h1 class="govuk-heading-l">Route of the consignment</h1>
+      </legend>
+      <p class="govuk-body">Excluding the departure and arrival countries, list all the other countries the consignment
+        will pass through.</p>
+
+      <h1 class="govuk-heading-m">You have added 1 country</h1>
+      <div class="govuk-form-group">
+        <dl class="hmrc-list-with-actions hmrc-list-with-actions--short" id="country-list">
+          <div class="hmrc-list-with-actions__item">
+            <dt class="hmrc-list-with-actions__name">
+              {{ data['consignment-country'] }}
+            </dt>
+            <div class="hmrc-list-with-actions__actions">
+              <dd class="hmrc-list-with-actions__action">
+                <a class="govuk-link" href="#">
+                  <span aria-hidden="true">Change</span>
+                  <span class="govuk-visually-hidden">Change Sydney Russell</span>
+                </a>
+              </dd>
+              <dd class="hmrc-list-with-actions__action">
+                <a class="govuk-link" href="#">
+                  <span aria-hidden="true">Remove</span>
+                  <span class="govuk-visually-hidden">Remove Sydney Russell from the list</span>
+                </a>
+              </dd>
+            </div>
+          </div>
+
+
+        </dl>
+      </div>
+
+      <div class="govuk-form-group">
+
+        <div class="govuk-body">
+          <label for="my-autocomplete" class="govuk-label" for="three-quarters">
+            Second country
+          </label>
+          <select id="location-autocomplete">
+            <option value="territory:AE-AZ"></option>
+            <option value="country:AF">Afghanistan</option>
+            <option value="country:AE-AJ">Ajman</option>
+          </select>
+
+          <input name="second-route-of-consignment" id="second-route-of-consignment" style="display:none">
+          <script type="text/javascript" src="/public/autocomplete/location-autocomplete.min.js"></script>
+
+          <script type="text/javascript">
+            openregisterLocationPicker({
+              selectElement: document.getElementById('location-autocomplete'),
+              url: '/public/autocomplete/location-autocomplete-graph.json'
+            });
+          </script>
+        </div>
+      </div>
+
+      </fieldset>
+      <button class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+  </div>
+
+  </form>
+
+  <script>
+
+
+
+    function addCountry() {
+
+      let country = "{{ data['consignment-country'] }}"
+      let countryList = "{{ data['second-route-of-consignment'] }}"
+      let countryToAdd = document.getElementById('location-autocomplete').value
+
+      let isCountryPopulated = !(countryToAdd == "" || countryToAdd == null)
+
+      if (isCountryPopulated) {
+        let countries = countryList == "" ? Array() : countryList.split(",")
+
+        if (!countries.includes(countryToAdd)) {
+          countries.push(countryToAdd)
+        }
+        let countryElement = document.getElementById("second-route-of-consignment")
+        countryElement.value = countries
+
+
+      }
+
+
+      return isCountryPopulated
+    }
+
+    window.onload = function () {
+      let countryElement = document.getElementById("second-route-of-consignment")
+      let countryList = "{{ data['second-route-of-consignment'] }}"
+
+
+      countryElement.value = ""
+      displayList()
+
+    }
+
+    function displayList() {
+
+      let countries = "{{ data['second-route-of-consignment'] }}"
+
+      let countryList = countries.split(",")
+
+      let elementInnerHtml = getCountryElement("{{ data['consignment-country'] }}")
+      countryList.forEach(country => {
+
+        elementInnerHtml = elementInnerHtml.concat(getCountryElement(country))
+      })
+
+
+      let elementListDOM = document.getElementById("country-list")
+      elementListDOM.innerHTML = elementInnerHtml
+
+    }
+
+    function getCountryElement(country){
+      let countryElement = `<div class="hmrc-list-with-actions__item">
+              <dt class="hmrc-list-with-actions__name">
+                ${country}
+              </dt>
+              <div class="hmrc-list-with-actions__actions">
+                <dd class="hmrc-list-with-actions__action">
+                  <a class="govuk-link" href="#">
+                    <span aria-hidden="true">Change</span>
+                    <span class="govuk-visually-hidden">Change Sydney Russell</span>
+                  </a>
+                </dd>
+                <dd class="hmrc-list-with-actions__action">
+                  <a class="govuk-link" href="#">
+                    <span aria-hidden="true">Remove</span>
+                    <span class="govuk-visually-hidden">Remove Sydney Russell from the list</span>
+                  </a>
+                </dd>
+              </div>
+            </div>`
+
+        return countryElement      
+
+    }
+
+    function removeCountry() {
+      
+    }
+
+  </script>
+
+  {% endblock %}

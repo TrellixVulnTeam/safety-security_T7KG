@@ -1,0 +1,101 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="item_name_or_code" method="post" id="item_commodity_form" onsubmit="return redirectPage()">
+        <a href="task_list_wit_carrier_completed" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Goods details</span>
+                <h1 class="govuk-heading-l">Do you know the commodity code for your item?</h1>
+            </legend>
+
+            <details class="govuk-details" data-module="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  Classifying the goods
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                <p class="govuk-body">Import commodity codes are between 4 to 8 digits long.</p>
+                <p class="govuk-body">You must use the correct name or commodity code so you can:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                  <li>complete import declarations</li>
+                  <li>check licences</li>
+                  <li>check if any restrictions apply</li>
+                  <li>pay the correct duties and VAT payments, if applicable</li>
+                </ul>
+                <p class="govuk-body">
+                  If you don’t know the commodity code you can
+                  <a href="https://www.trade-tariff.service.gov.uk/search?q=steel&input-autocomplete=steel" class="govuk-link" target="_blank">ask HMRC for help classifying the goods (opens in a new tab)</a>
+                  and contact the Tariff Classification Service.
+                </p>
+                  <p class="govuk-body">You can add multiple commodities in the ENS declaration service.</p>
+              </div>
+            </details>
+
+            <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="where-do-you-live" name="item-commodity-code" type="radio" value="item_name_or_code">
+                <label class="govuk-label govuk-radios__label" for="where-do-you-live">
+                  Yes
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="where-do-you-live-2" name="item-commodity-code" type="radio" value="item_description">
+                <label class="govuk-label govuk-radios__label" for="where-do-you-live-2">
+                  No
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+
+
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+
+
+    </div>
+  </div>
+
+  <script>
+    function redirectPage() {
+      let checked = false;
+      document.getElementsByName("item-commodity-code").forEach((x) => {
+        if(x.checked) {
+          document.getElementById("item_commodity_form").action = x.value;
+          checked = true;
+        }
+      })
+      return checked;
+    }
+
+  </script>
+
+{% endblock %}

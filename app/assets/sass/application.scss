@@ -1,0 +1,98 @@
+// global styles for <a> and <p> tags
+$govuk-global-styles: true;
+$govuk-new-link-styles: true;
+
+// We can't mount GOV.UK Frontend's assets at root as it's done automatically by the extensions framework.
+$govuk-assets-path: '/govuk/assets/';
+
+// Import GOV.UK Frontend and any extension styles if extensions have been configured
+@import "lib/extensions/extensions";
+
+// Patterns that aren't in Frontend
+@import "patterns/step-by-step-header";
+@import "patterns/step-by-step-nav";
+@import "patterns/step-by-step-related";
+@import "patterns/task-list";
+@import "patterns/related-items";
+
+// Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
+
+.govuk-main-wrapper {
+  padding-top: 5px !important;
+}
+
+.govuk-grid-row {
+  margin-top: 50px;
+}
+
+.paye-card {
+  border: 1px solid #dee0e2;
+  font-size: 16px;
+}
+
+#draft_ENS {
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.pentax {
+  display: flex;
+}
+
+.card {
+  flex-basis: 31%;
+  margin-bottom: 2em;
+  font-size: 16px;
+  border: 1px solid #dee0e2;
+}
+
+.card-body {
+  height: 250px !important;
+  border-bottom: 0px;
+  background-color: #f8f8f8;
+  transition: 0.1s ease-in-out;
+  padding: 12px;
+  width: 273px;
+  display: inline-block;
+}
+
+.card-action {
+  border-top: 0;
+  padding: 12px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 0 15px;
+}
+
+
+//header toggle
+.govuk-header__navigation-list {
+  float: right;
+}
+
+.govuk-header__navigation {
+  display: contents;
+}
+
+.govuk-header__navigation-item--active a{
+  color: #b1b4b6 !important;
+}
+
+//making-an-entry-summary-declaration
+
+.hmrc-account-menu__main {
+    li:nth-child(2) {
+      display: none;
+    }
+    li:nth-child(3) {
+      display: none;
+    }
+    li:nth-child(4) {
+      display: none;
+    }
+}

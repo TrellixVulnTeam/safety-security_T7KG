@@ -1,0 +1,78 @@
+
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="route_of_consigment" method="post" id="form-passing-goods" onsubmit="return redirectPage()">
+        <a href="origin_of_goods" class="govuk-back-link">Back</a>
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Route details</span>
+                <h1 class="govuk-heading-l">Will the goods pass through any other countries on the way to Great Britain?</h1>
+            </legend>
+            <!-- <p class="govuk-body">If your consignment stops in or passes through any other countries after leaving the departure country and reaching the arrival country, select them here.
+             </p> -->
+            <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="goods-passing-yes" name="goods-passing" type="radio" value="route_of_consigment">
+                <label class="govuk-label govuk-radios__label" for="changed-name">
+                  Yes
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="goods-passing-no" name="goods-passing" type="radio" value="customs_office">
+                <label class="govuk-label govuk-radios__label" for="goods-passing">
+                  No
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+
+
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    function redirectPage() {
+      let checked = false;
+      document.getElementsByName("goods-passing").forEach((x) => {
+        if(x.checked) {
+          document.getElementById("form-passing-goods").action = x.value;
+          checked = true;
+        }
+      })
+      return checked;
+    }
+
+  </script>
+
+{% endblock %}

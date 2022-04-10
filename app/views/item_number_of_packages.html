@@ -1,0 +1,53 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="item_mark_or_number_requirement" method="post">
+        <a href="" class="govuk-back-link">Back</a>
+        <span class="govuk-caption-l">Goods details</span>
+        <h1 class="govuk-heading-l">How many packages does the item contain?</h1>
+        <p class="govuk-body">
+          A package means the goods are wrapped or contained in such a way that they cannot be divided without first undoing the package.
+        </p>
+        <div class="govuk-form-group">
+          <!-- <label class="govuk-label" for="weight">
+            Number of packages
+          </label> -->
+          <div class="govuk-input__wrapper"><input class="govuk-input govuk-input--width-3" id="weight" name="number-of-packages" type="text" spellcheck="false">
+            <!-- <div class="govuk-input__suffix" aria-hidden="true">packages</div> -->
+          </div>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+
+
+    </div>
+  </div>
+
+
+{% endblock %}

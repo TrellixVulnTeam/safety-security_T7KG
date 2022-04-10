@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<nav class="hmrc-language-select" aria-label="Language switcher">
+  <ul class="hmrc-language-select__list">
+    <li class="hmrc-language-select__list-item">
+      <span aria-current="true">English</span>
+    </li>
+    <li class="hmrc-language-select__list-item">
+      <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link"
+        data-journey-click="link - click:lang-select:Cymraeg">
+        <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+        <span aria-hidden="true">Cymraeg</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="transportation_add_another_seal" method="post" id="transport_add_seal" onsubmit="redirect()">
+      <a href="transportation_add_seals" class="govuk-back-link">Back</a>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Transport details</span>
+            <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="event-name">
+                What is the security seal number you want to add?
+              </label>
+            </h1>
+          </legend>
+
+          <input class="govuk-input govuk-input--width-20" id="seals-identity-number-entry" name="seals-identity-number-entry" type="text">
+        </fieldset>
+      </div>
+
+      <input type="hidden" name="mode-of-transport">
+      <input id="seals-identity-number" name="seals-identity-number" style="display:none">
+      <button class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+
+    </form>
+
+    <script>
+
+      function redirect() {
+        let elementList = "{{ data['seals-identity-number'] }}"
+        let index = "{{ data['seals-identity-number-index'] }}"
+
+        if (index < elementList.length && index != "") {
+
+          let changeElement = (elementList, index, elementToAdd) => {
+            elementList[index] = elementToAdd
+            return elementList
+          }
+          return updateElementList(changeElement, elementList, index);
+        } else {
+
+          let addElement = (elements, index, elementToAdd) => {
+            if (!elements.includes(elementToAdd)) {
+              elements.push(elementToAdd)
+            }
+            return elements
+          }
+          return updateElementList(addElement, elementList, index);
+        }
+      }
+
+      function updateElementList(updateList, elementList, index) {
+        let elementToAdd = document.getElementById('seals-identity-number-entry').value
+
+        let isElementPopulated = !(elementToAdd == "" || elementToAdd == null)
+
+        if (isElementPopulated) {
+          let elements = elementList == "" ? Array() : elementList.split(",")
+
+
+          elements = updateList(elements, index, elementToAdd)
+
+          document.getElementById("seals-identity-number").value = elements
+
+        }
+        return isElementPopulated
+      }
+
+      window.onload = function () {
+        let elementList = getList("{{ data['seals-identity-number'] }}")
+        let index = "{{ data['seals-identity-number-index'] }}"
+
+        if (index < elementList.length && index != "") {
+          document.getElementById('seals-identity-number-entry').value = elementList[index]
+        }
+      };
+
+      function getList(typeOfList) {
+        if (typeOfList == "") {
+          return Array()
+        } else {
+          return typeOfList.split(",")
+        }
+      }
+
+    </script>
+
+  </div>
+</div>
+
+{% endblock %}

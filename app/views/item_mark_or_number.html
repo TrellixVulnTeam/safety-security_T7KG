@@ -1,0 +1,48 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="item_check_your_answers" method="post">
+        <a href="item_mark_or_number_requirement.html" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <span class="govuk-caption-l">Goods details</span>
+          <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="more-detail">
+              What is the mark or number?
+            </label>
+          </h1>
+          <div id="more-detail-hint" class="govuk-hint">
+            Provide any details regarding the mark or number that would help identify the item.
+          </div>
+          <textarea class="govuk-textarea" id="more-detail" name="more-detail-mark-number" rows="8" aria-describedby="more-detail-hint"></textarea>
+        </div>
+
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

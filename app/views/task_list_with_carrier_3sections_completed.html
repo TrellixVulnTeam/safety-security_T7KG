@@ -1,0 +1,147 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav id="secondary-nav" class="hmrc-account-menu" aria-label="Account" data-module="hmrc-account-menu">
+    <a href="index" class="hmrc-account-menu__link hmrc-account-menu__link--home hmrc-account-menu__link--active">
+      <span class="hmrc-account-icon hmrc-account-icon--home">
+        Account home </span>
+    </a>
+
+    <a href="#" class="hmrc-account-menu__link hmrc-account-menu__link--menu js-hidden js-visible" tabindex="-1" aria-hidden="true" aria-expanded="false">
+      Account menu </a>
+
+    <ul class="hmrc-account-menu__main js-hidden">
+
+
+      <li>
+        <a href="#sign-out" class="hmrc-account-menu__link">
+          Sign out </a>
+      </li>
+    </ul>
+  </nav>
+
+
+  <div class="govuk-grid-row">
+
+
+    <nav class="hmrc-language-select" aria-label="Language switcher">
+      <ul class="hmrc-language-select__list">
+        <li class="hmrc-language-select__list-item">
+          <span aria-current="true">English</span>
+        </li>
+        <li class="hmrc-language-select__list-item">
+          <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+            <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+            <span aria-hidden="true">Cymraeg</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl">
+        ENS declaration: {{ data['ens-name'] }}
+        <span class="govuk-caption-m" style="margin-top:5px;">Last saved on 04 January 2022 at 10:00 am</span>
+      </h1>
+
+
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Declaration incomplete</h2>
+      <p class="govuk-body govuk-!-margin-bottom-7">You have completed 2 of 4 sections.</p>
+
+      <ol class="app-task-list">
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">1. </span> Journey
+            <span class="govuk-caption-m" style="margin-top:5px;">Tell us how the consignment of goods will get to Great Britain.</span>
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="origin_of_goods" aria-describedby="eligibility-status">
+                  Complete route details
+                </a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag" id="eligibility-status">completed</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="#" aria-describedby="read-declaration-status">
+                  Complete transport details
+                </a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag" id="read-declaration-status">completed</strong>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">2. </span> Parties
+            <span class="govuk-caption-m" style="margin-top:5px;">Tell us who is involved in this import.</span>
+          </h2>
+          <ul class="app-task-list__items">
+
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="carrier_eori" aria-describedby="list-convictions-status">
+                  Identify the carrier
+                </a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag" id="list-convictions-status">completed</strong>
+            </li>
+
+          </ul>
+        </li>
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">3. </span> Goods
+            <span class="govuk-caption-m" style="margin-top:5px;">If your consignment has more than one goods item, you’ll need to describe each one.</span>
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="#" aria-describedby="read-declaration-status">
+                  Complete item 1
+                </a>
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+            </li>
+          </ul>
+        </li>
+      </ol>
+
+      <h2 class="govuk-heading-m">Check and submit</h2>
+      <p class="govuk-body">You must complete all sections before you can submit your declaration.</p>
+
+      <button disabled="disabled" aria-disabled="true" class="govuk-button govuk-button--disabled" data-module="govuk-button">
+        Submit declaration
+      </button>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

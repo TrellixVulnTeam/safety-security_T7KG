@@ -1,0 +1,157 @@
+{% extends "layout.html" %} {% block pageTitle %} GOV.UK Prototype Kit {%
+endblock %} {% block content %}
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag"> alpha </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your
+      <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<nav
+  id="secondary-nav"
+  class="hmrc-account-menu"
+  aria-label="Account"
+  data-module="hmrc-account-menu"
+>
+  <a
+    href="#home"
+    class="hmrc-account-menu__link hmrc-account-menu__link--home hmrc-account-menu__link--active"
+  >
+    <span class="hmrc-account-icon hmrc-account-icon--home">
+      Account home
+    </span>
+  </a>
+
+  <a
+    href="#"
+    class="hmrc-account-menu__link hmrc-account-menu__link--menu js-hidden js-visible"
+    tabindex="-1"
+    aria-hidden="true"
+    aria-expanded="false"
+  >
+    Account menu
+  </a>
+
+  <ul class="hmrc-account-menu__main js-hidden">
+    <li>
+      <a href="#sign-out" class="hmrc-account-menu__link"> Sign out </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="govuk-grid-row">
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a
+          href="?cy"
+          hreflang="cy"
+          lang="cy"
+          rel="alternate"
+          class="govuk-link"
+          data-journey-click="link - click:lang-select:Cymraeg"
+        >
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-width-container">
+    <a href="carrier_paid_options" class="govuk-back-link">Back</a>
+
+    <main class="govuk-main-wrapper" id="main-content" role="main">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+          <h1 class="govuk-heading-l">Check your answers</h1>
+
+          <h2 class="govuk-heading-m">Transport details</h2>
+
+          <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                Vehicle registration number
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ data['vehicle-registration-number'] }}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="/transport_details">
+                  Change<span class="govuk-visually-hidden">
+                    vehicle registration number</span
+                  >
+                </a>
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">Registered trailer number</dt>
+              <dd class="govuk-summary-list__value">
+                {{ data['registered-trailer-number'] }}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="/transport_details">
+                  Change<span class="govuk-visually-hidden">
+                    registered trailer number</span
+                  >
+                </a>
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">Document type</dt>
+              <dd class="govuk-summary-list__value">
+                {{ data['document-type'] }}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="/transport_contract_ref_numbers">
+                  Change<span class="govuk-visually-hidden">
+                    document type</span
+                  >
+                </a>
+              </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">Document reference number</dt>
+              <dd class="govuk-summary-list__value">{{ data['document-reference-number'] }}</dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="/transport_contract_ref_numbers">
+                  Change<span class="govuk-visually-hidden">
+                    document reference number</span
+                  >
+                </a>
+              </dd>
+            </div>
+
+            
+          </dl>
+
+          <h2 class="govuk-heading-m">Save your answers</h2>
+
+          <p class="govuk-body">
+            Your answers should be as accurate and complete as you can make
+            them. Once you've submitted the declaration, journey details can be
+            amended up to the point that the goods arrive at the border.
+          </p>
+
+          <form action="task_list_no_carrier_journey_completed" method="post" novalidate>
+            <input type="hidden" name="answers-checked" value="true" />
+
+            <button class="govuk-button" data-module="govuk-button">
+              Save
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  {% endblock %}
+</div>

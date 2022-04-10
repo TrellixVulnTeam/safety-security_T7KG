@@ -1,0 +1,127 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="" method="post" id="notified-list" onsubmit="return redirectPage()">
+        <a href="notified_party_check_your_answers" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Consignees and notified parties</span>
+              <h1 class="govuk-fieldset__heading">Your notified party</h1>
+            </legend>
+
+            <p class="govuk-body">Details of your notified party are shown below. You can add, change or remove a notified party if required.</p>
+
+
+            <h1 class="govuk-heading-m">You have added 1 notified party below</h1>
+            <div class="govuk-form-group">
+              <dl class="hmrc-list-with-actions hmrc-list-with-actions--short">
+                <div class="hmrc-list-with-actions__item">
+                  <dt class="hmrc-list-with-actions__name">
+
+                    <div class="consignor_address">
+                    {{ data['add-notified-name'] }}<br>
+                    {{ data['add-notified-building number'] }}<br>
+                    {{ data['add-notified-town'] }}<br>
+                    {{ data['add-notified-country'] }}<br>
+                    {{ data['add-notified-postcode'] }}
+                    <div>
+                  </dt>
+                  <div class="hmrc-list-with-actions__actions">
+                    <dd class="hmrc-list-with-actions__action">
+                      <a class="govuk-link" href="#">
+                        <span aria-hidden="true">Change</span>
+                        <span class="govuk-visually-hidden">Change Sydney Russell</span>
+                      </a>
+                    </dd>
+                    <dd class="hmrc-list-with-actions__action">
+                      <a class="govuk-link" href="#">
+                        <span aria-hidden="true">Remove</span>
+                        <span class="govuk-visually-hidden">Remove Sydney Russell from the list</span>
+                      </a>
+                    </dd>
+                  </div>
+                </div>
+              </dl>
+
+            </div>
+
+              <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+                  <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
+                  Do you need to add another notified party?
+                  </legend>
+                  <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="add-another" name="aadd-another_notified type="radio" value="how_notify_party">
+                      <label class="govuk-label govuk-radios__label" for="add-another">
+                        Yes
+                      </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                      <input class="govuk-radios__input" id="add-another-2" name="add-another_notified" type="radio" value="consignees_notified_parties_check_your_answers">
+                      <label class="govuk-label govuk-radios__label" for="add-another-2">
+                        No
+                      </label>
+                    </div>
+                  </div>
+
+                </fieldset>
+          </fieldset>
+        </div>
+
+        <input type="hidden" name="mode-of-transport">
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+      <script>
+        function redirectPage() {
+          let checked = false;
+        document.getElementsByName("add-another_notified").forEach((x) => {
+          if(x.checked) {
+            document.getElementById("notified-list").action = x.value;
+            checked = true;
+          }
+        })
+        return checked;
+      }
+
+      </script>
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

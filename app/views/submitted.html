@@ -1,0 +1,113 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <a href="index" class="govuk-back-link">Back</a>
+          <h1 class="govuk-heading-l">Submitted declarations</h1>
+          <p class="govuk-body">You can amend a declaration up to 7 days after aconsignment’s expected arrival time. Declaration records are kept for 28 days after arrival.
+              A submitted declaration cannot be changed until a Movement Reference Number  (MRN) has been assigned - this can take up to 5 minutes.
+          </p>
+    </div>
+
+          <div class="govuk-grid-column-full">
+            <table class="govuk-table">
+              <p class="govuk-body" style="margin-bottom:10px;">Showing 4 of 4 results</p>
+              <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                  <th scope="col" class="govuk-table__header">Reference</th>
+                  <th scope="col" class="govuk-table__header">Date submitted</th>
+                  <th scope="col" class="govuk-table__header">Date amended</th>
+                  <th scope="col" class="govuk-table__header" style="width:200px;">Movement reference number</th>
+                  <th scope="col" class="govuk-table__header">Status</th>
+                  <th scope="col" class="govuk-table__header">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                  <td class="govuk-table__cell">Reference A</td>
+                  <td class="govuk-table__cell">12 Jan 2022</td>
+                  <td class="govuk-table__cell">12 Jan 2022</td>
+                  <td class="govuk-table__cell">RF45390493090233</td>
+                  <td class="govuk-table__cell">
+                    <strong class="govuk-tag govuk-tag--red">rejected</strong>
+                  </td>
+                  <td class="govuk-table__cell">
+                    <a href="task_list_completed_submitted">Amend</a>
+                  </td>
+                </tr>
+                <tr class="govuk-table__row">
+                  <td class="govuk-table__cell">Reference B</td>
+                  <td class="govuk-table__cell">10 Jan 2022</td>
+                  <td class="govuk-table__cell">10 Jan 2022</td>
+                  <td class="govuk-table__cell">Pending</td>
+                  <td class="govuk-table__cell">
+                    <strong class="govuk-tag">Submitted</strong>
+                  </td>
+                  <td class="govuk-table__cell">
+
+                  </td>
+                </tr>
+                <tr class="govuk-table__row">
+                  <td class="govuk-table__cell">Reference C</td>
+                  <td class="govuk-table__cell">1 Jan 2022</td>
+                  <td class="govuk-table__cell">4 Jan 2022</td>
+                  <td class="govuk-table__cell">GB50392340923940</td>
+                  <td class="govuk-table__cell">
+                    <strong class="govuk-tag govuk-tag--green">Completed</strong>
+                  </td>
+                  <td class="govuk-table__cell">
+                    <a href="task_list_completed">Amend</a>
+                  </td>
+                </tr>
+                <tr class="govuk-table__row">
+                  <td class="govuk-table__cell">Reference C</td>
+                  <td class="govuk-table__cell">21 Dec 2021</td>
+                  <td class="govuk-table__cell">23submitted Dec 2021</td>
+                  <td class="govuk-table__cell">GB50392340923940</td>
+                  <td class="govuk-table__cell">
+                    <strong class="govuk-tag govuk-tag--green">Completed</strong>
+                  </td>
+                  <td class="govuk-table__cell">
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+
+
+{% endblock %}

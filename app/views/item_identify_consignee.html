@@ -1,0 +1,74 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="item_consignee_eori" method="post" id="form-item-identify-consignee" onsubmit="return redirect()">
+        <a href="item_do_you_know_the_consignee.html" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Consignees and notified parties</span>
+              <h1 class="govuk-fieldset__heading">
+                How do you want to identify the consignee?
+              </h1>
+            </legend>
+            <p class="govuk-body">The best way to find a company is by their EORI (Economic Operators Registration and Identification) number.</p>
+            <p class="govuk-body">If you don’t know the EORI number, you must provide the company’s name and address.</p>
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="where-do-you-live" name="item-identify-consignee" type="radio" value="item_consignee_eori">
+                <label class="govuk-label govuk-radios__label" for="where-do-you-live">
+                  I’ll provide the consignee GB EORI number
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="where-do-you-live-2" name="item-identify-consignee" type="radio" value="item_consignee_name">
+                <label class="govuk-label govuk-radios__label" for="where-do-you-live-2">
+                  I’ll provide the consignee's name and address
+                </label>
+              </div>
+          </fieldset>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function redirect() {
+      let checked = false;
+      document.getElementsByName("item-identify-consignee").forEach(x => {
+        if (x.checked) {
+          document.getElementById("form-item-identify-consignee").action = x.value
+          checked = true
+        }
+      })
+      return checked
+    }
+  </script>
+
+{% endblock %}

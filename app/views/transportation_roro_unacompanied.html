@@ -1,0 +1,99 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="transportation_more_docs" method="post">
+        <a href="transportation_nationality" class="govuk-back-link">Back</a>
+
+        <h1 class="govuk-heading-l">
+            <span class="govuk-caption-l">Transport details</span>
+            RoRo unaccompanied</h1>
+            <p class="govuk-body">Give details of the vehicle carrying your goods to help UK Border Force identify the consignment.</p>
+
+
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="event-name">
+                Registered trailer number
+              </label>
+              <input class="govuk-input govuk-input--width-10" type="text" name="registered-trailer-number">
+            </div>
+
+            <p class="govuk-body">Tell us the ferry company you intend to use to bring your vehicle into Great Britain.</p>
+
+            <!-- <details class="govuk-details" data-module="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  Help with IMO
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                Search for a <a href="https://www.vesselmarinefinder.com/2013/07/imo-number-search.html" target="_blank">IMO number</a>
+              </div>
+            </details> -->
+
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="event-name">
+                  IMO number
+                </label>
+                <input class="govuk-input govuk-input--width-10" type="text" name="imo-number">
+              </div>
+
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="event-name">
+                  Name of ferry company (optional)
+                </label>
+                <input class="govuk-input govuk-input--width-20" type="text" name="ferry-company-name">
+              </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,94 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <a href="index" class="govuk-back-link">Back</a>
+          <h1 class="govuk-heading-l">Draft declarations</h1>
+      </div>
+
+          <div class="govuk-grid-column-full">
+            <table class="govuk-table">
+              <p class="govuk-body" style="margin-bottom:10px;">Showing 3 of 3 results</p>
+              <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                  <th scope="col" class="govuk-table__header">Reference</th>
+                  <th scope="col" class="govuk-table__header">Date created</th>
+                  <th scope="col" class="govuk-table__header">Date updated</th>
+                  <th scope="col" class="govuk-table__header">Status</th>
+                  <th scope="col" class="govuk-table__header">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                  <td class="govuk-table__cell">Reference A</td>
+                  <td class="govuk-table__cell">12 Jan 2022</td>
+                  <td class="govuk-table__cell">12 Jan 2022</td>
+                  <td class="govuk-table__cell">
+                    <strong class="govuk-tag govuk-tag--blue">pending</strong>
+                  </td>
+                  <td class="govuk-table__cell">
+                    <a href="#">Continue</a>
+                  </td>
+                </tr>
+                <tr class="govuk-table__row">
+                  <td class="govuk-table__cell">Reference B</td>
+                  <td class="govuk-table__cell">10 Jan 2022</td>
+                  <td class="govuk-table__cell">11 Jan 2022</td>
+                  <td class="govuk-table__cell">
+                    <strong class="govuk-tag govuk-tag--blue">pending</strong>
+                  </td>
+                  <td class="govuk-table__cell">
+                    <a href="task_list_drafts_a">Continue</a>
+                  </td>
+                </tr>
+                <tr class="govuk-table__row">
+                  <td class="govuk-table__cell">Reference C</td>
+                  <td class="govuk-table__cell">1 Jan 2022</td>
+                  <td class="govuk-table__cell">3 Jan 2022</td>
+                  <td class="govuk-table__cell">
+                    <strong class="govuk-tag govuk-tag--pink">expiring in 2 days</strong>
+                  </td>
+                  <td class="govuk-table__cell">
+                    <a href="task_list_drafts_expiring">Continue</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+    </div>
+
+
+{% endblock %}

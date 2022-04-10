@@ -1,0 +1,81 @@
+
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="" method="post" id="add-payment-method-form" onsubmit="return redirectPage()" name="add-payment-method-form">
+        <a href="item_dangerous_goods.html"govuk-back-link">Back</a>
+
+        <div class="govuk-form-group" style="margin-top:40px">
+
+
+            <div class="govuk-form-group">
+              <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                  <span class="govuk-caption-l">Complete goods details</span>
+                  <h2 class="govuk-heading-l">Do you want to add a payment method?</h2>
+                </legend>
+                <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="changed-name" name="add-payment-method" type="radio" value="carrier_paid_options">
+                    <label class="govuk-label govuk-radios__label" for="changed-name">
+                      Yes
+                    </label>
+                  </div>
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="changed-name-2" name="add-payment-method" type="radio" value="check_your_answers_item1">
+                    <label class="govuk-label govuk-radios__label" for="changed-name-2">
+                      No
+                    </label>
+                  </div>
+                </div>
+
+              </fieldset>
+            </div>
+
+
+
+        </div>
+        <input type="hidden" name="item_dangerous_goods">
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function redirectPage() {
+      let checked = false;
+    document.getElementsByName("add-payment-method").forEach((x) => {
+      if(x.checked) {
+        document.getElementById("add-payment-method-form").action = x.value;
+        checked = true;
+      }
+    })
+    return checked;
+  }
+
+  </script>
+
+{% endblock %}

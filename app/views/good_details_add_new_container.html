@@ -1,0 +1,92 @@
+
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="" method="post" id="transport_add_seal">
+        <a href="route_new_loading_places" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Complete goods details</span>
+              <h1 class="govuk-fieldset__heading">Your container numbers</h1>
+            </legend>
+
+            <p class="govuk-body">Details of your container numbers are shown below. You can add, change or remove a container if required.</p>
+
+
+            <h1 class="govuk-heading-m">You have added 1 place of unloading</h1>
+            <div class="govuk-form-group">
+              <dl class="hmrc-list-with-actions hmrc-list-with-actions--short">
+                <div class="hmrc-list-with-actions__item">
+                  <dt class="hmrc-list-with-actions__name">
+                    {{ data['add-container_number'] }}
+                  </dt>
+                  <div class="hmrc-list-with-actions__actions">
+                    <dd class="hmrc-list-with-actions__action">
+                      <a class="govuk-link" href="#">
+                        <span aria-hidden="true">Change</span>
+                        <span class="govuk-visually-hidden">Change Sydney Russell</span>
+                      </a>
+                    </dd>
+                    <dd class="hmrc-list-with-actions__action">
+                      <a class="govuk-link" href="#">
+                        <span aria-hidden="true">Remove</span>
+                        <span class="govuk-visually-hidden">Remove Sydney Russell from the list</span>
+                      </a>
+                    </dd>
+                  </div>
+                </div>
+              </dl>
+            </div>
+
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="width-20">
+                Second container number. Must be 20 digits long
+              </label>
+              <input class="govuk-input govuk-input--width-20" id="width-20" name="width-20" type="text">
+            </div>
+          </fieldset>
+          </div>
+
+        <input type="hidden" name="mode-of-transport">
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

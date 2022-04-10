@@ -1,0 +1,109 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="task_list_no_carrier_fully_completed" method="post" id="form-add-another-item" onsubmit="return redirectPage()">
+        <a href="check_your_answers_item1.html" class="govuk-back-link">Back</a>
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+          <span class="govuk-caption-l">Goods details</span>
+            <h1 class="govuk-heading-l">Your item</h1>
+        </legend>
+        <p class="govuk-body">If you want to modify or remove an item use the options provided below. You can also add another item. </p>
+
+
+        <h1 class="govuk-heading-m">You have added 1 item below</h1>
+        <div class="govuk-form-group">
+          <dl class="hmrc-list-with-actions hmrc-list-with-actions--short">
+            <div class="hmrc-list-with-actions__item">
+              <dt class="hmrc-list-with-actions__name">
+                {{ data['item-commodity-name-code'] }}
+              </dt>
+              <div class="hmrc-list-with-actions__actions">
+                <dd class="hmrc-list-with-actions__action">
+                  <a class="govuk-link" href="#">
+                    <span aria-hidden="true">Change</span>
+                    <span class="govuk-visually-hidden">Change Sydney Russell</span>
+                  </a>
+                </dd>
+                <dd class="hmrc-list-with-actions__action">
+                  <a class="govuk-link" href="#">
+                    <span aria-hidden="true">Remove</span>
+                    <span class="govuk-visually-hidden">Remove Sydney Russell from the list</span>
+                  </a>
+                </dd>
+              </div>
+            </div>
+          </dl>
+        </div>
+
+
+        <form method="post" novalidate action="">
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
+                Do you need to add another item?
+              </legend>
+              <!-- <div id="add-another-hint" class="govuk-hint">
+                You must tell us about all your directors.
+              </div> -->
+              <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="add-another" name="add-another-item" type="radio" value="item_commodity_code">
+                  <label class="govuk-label govuk-radios__label" for="add-another">
+                    Yes
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="add-another-2" name="add-another-item" type="radio" value="task_list_completed">
+                  <label class="govuk-label govuk-radios__label" for="add-another-2">
+                    No
+                  </label>
+                </div>
+              </div>
+
+            </fieldset>
+          </div>
+
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    function redirectPage() {
+      let checked = false;
+    document.getElementsByName("add-another-item").forEach((x) => {
+      if(x.checked) {
+        document.getElementById("form-add-another-item").action = x.value;
+        checked = true;
+      }
+    })
+    return checked;
+  }
+
+  </script>
+{% endblock %}

@@ -1,0 +1,79 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="item_identify_consignee" method="post" id="form-item-know-consignee" onsubmit="return redirect()">
+        <a href="item_identify_consignor.html" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Consignees and notified parties</span>
+              <h1 class="govuk-fieldset__heading">
+                Are the goods carried under a negotiable bill of lading?
+              </h1>
+            </legend>
+            <div id="changed-name-hint" class="govuk-hint">
+              Tell us if the goods have a consignee or buyer -  if yes, you will need to provide notified party details, if no, we'll need the consignee details.
+            </div>
+            <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="know-consignee-yes" name="know_consignee" type="radio" value="how_notify_party">
+                <label class="govuk-label govuk-radios__label" for="know_consignee_yes">
+                  Yes
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="know-consignee-no" name="know_consignee" type="radio" value="item_identify_consignee">
+                <label class="govuk-label govuk-radios__label" for="know_consignee_no">
+                  No
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    function redirect() {
+      let checked = false;
+      document.getElementsByName("know_consignee").forEach(x => {
+        if (x.checked) {
+          document.getElementById("form-item-know-consignee").action = x.value
+          checked = true
+        }
+      })
+      return checked
+    }
+  </script>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="transportation_more_docs" method="post">
+        <a href="transportation_nationality" class="govuk-back-link">Back</a>
+
+        <h1 class="govuk-heading-l">
+            <span class="govuk-caption-l">Transport details</span>
+            RoRo accompanied</h1>
+            <p class="govuk-body">Give details of the vehicle carrying your goods to help Border Force identify the consignment.</p>
+
+
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="event-name">
+                  Vehicle registration number
+                </label>
+                <input class="govuk-input govuk-input--width-10" type="text" name="vehicle-registration-number">
+              </div>
+
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="event-name">
+                  Registered trailer number
+                </label>
+                <input class="govuk-input govuk-input--width-10" type="text" name="registered-trailer-number">
+              </div>
+
+              <p class="govuk-body">Tell us the ferry company you intend to use to bring your vehicle into Great Britain.</p>
+
+
+              <div class="govuk-form-group">
+                <label class="govuk-label" for="event-name">
+                  Name of ferry company (optional)
+                </label>
+                <input class="govuk-input govuk-input--width-20" type="text" name="ferry-company-name">
+              </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

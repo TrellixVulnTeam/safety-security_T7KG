@@ -1,0 +1,115 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+<script>
+  console.log("hi")
+  $('input[type=radio]').on('change', function () {
+    var dataValue = $(this).attr('data-value')
+    $('input[type=hidden]').val(dataValue)
+})
+</script>
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav id="secondary-nav" class="hmrc-account-menu" aria-label="Account" data-module="hmrc-account-menu">
+    <a href="#home" class="hmrc-account-menu__link hmrc-account-menu__link--home hmrc-account-menu__link--active">
+      <span class="hmrc-account-icon hmrc-account-icon--home">
+        Account home </span>
+    </a>
+
+    <a href="#" class="hmrc-account-menu__link hmrc-account-menu__link--menu js-hidden js-visible" tabindex="-1" aria-hidden="true" aria-expanded="false">
+      Account menu </a>
+
+    <ul class="hmrc-account-menu__main js-hidden">
+
+      <li>
+        <a href="#sign-out" class="hmrc-account-menu__link">
+          Sign out </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+
+    <nav class="hmrc-language-select" aria-label="Language switcher">
+      <ul class="hmrc-language-select__list">
+        <li class="hmrc-language-select__list-item">
+          <span aria-current="true">English</span>
+        </li>
+        <li class="hmrc-language-select__list-item">
+          <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+            <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+            <span aria-hidden="true">Cymraeg</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="item_provide_crn" id="crn-check" method="post" id="login" onsubmit="return redirectPage()">
+        <a href="item_packaging.html" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Can you provide a Commercial Reference Number (CRN)?
+              </h1>
+            </legend>
+            <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="crn-yes" name="crn-check" type="radio" data-value="yes" value="/item_provide_crn">
+                <label class="govuk-label govuk-radios__label" for="is_crn_yes">
+                  Yes
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="crn-no" name="crn-check" type="radio" data-value="no" value="/define_weight">
+                <label class="govuk-label govuk-radios__label" for="is_crn_no">
+                  No
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+        <input type="hidden" name="comm_ref_num">
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    function redirectPage() {
+      let checked = false;
+    document.getElementsByName("crn-check").forEach((x) => {
+      if(x.checked) {
+        document.getElementById("crn-check").action = x.value;
+        checked = true;
+      }
+    })
+    return checked; 
+  }
+
+  </script>
+
+{% endblock %}

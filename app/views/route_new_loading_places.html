@@ -1,0 +1,173 @@
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="goods_passing_other_countries" method="post" id="route_add_new_loading_place"
+      onsubmit="return redirectPage()">
+      <a href="" class="govuk-back-link">Back</a>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Route details</span>
+            <h1 class="govuk-fieldset__heading">Place of loading</h1>
+          </legend>
+
+          <p class="govuk-body">Add, amend, or remove the country where the goods are loaded on to the active means of
+            transport.</p>
+
+
+          <h1 class="govuk-heading-m">You have added 1 place of loading below</h1>
+          <div class="govuk-form-group">
+            <dl class="hmrc-list-with-actions hmrc-list-with-actions--short" id="element-list">
+             
+            </dl>
+
+          </div>
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
+                Do you need to add another place of loading?
+              </legend>
+              <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="add-another" name="add-another_loading_place" type="radio"
+                    value="route_place_of_loading">
+                  <label class="govuk-label govuk-radios__label" for="add-another">
+                    Yes
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="add-another-2" name="add-another_loading_place" type="radio"
+                    value="goods_passing_other_countries">
+                  <label class="govuk-label govuk-radios__label" for="add-another-2">
+                    No
+                  </label>
+                </div>
+              </div>
+              <input id="place-of-loading-location-index" name="place-of-loading-location-index" style="display:none">
+            </fieldset>
+            <input id="place-of-loading-index" name="place-of-loading-index" style="display:none">
+        </fieldset>
+      </div>
+
+      <input type="hidden" name="mode-of-transport">
+      <button class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+    </form>
+
+    <script>
+      function redirectPage() {
+        let checked = false;
+        document.getElementsByName("add-another_loading_place").forEach((x) => {
+          if (x.checked) {
+            document.getElementById("route_add_new_loading_place").action = x.value;
+            checked = true;
+          }
+        })
+        return checked;
+      }
+      window.onload = function () {
+
+        displayList()
+
+      }
+
+      function displayList() {
+
+        let elementList = getList("{{data['place-of-loading']}}")
+        let elementInnerHtml = ""
+        var counter = 0;
+        elementList.forEach(element => {
+
+          elementInnerHtml = elementInnerHtml.concat(getHtmlElement(element, counter))
+          counter++;
+        })
+
+
+        let elementListDOM = document.getElementById("element-list")
+        elementListDOM.innerHTML = elementInnerHtml
+
+      }
+
+      function getHtmlElement(element, counter) {
+        const redirectPageName = "route_place_of_loading"
+        const nameProperty = "place-of-loading-index"
+        const id = `place-of-loading-index-${counter}`
+
+        let htmlElement = `<div class="hmrc-list-with-actions__item">
+          <dt class="hmrc-list-with-actions__name">
+            ${element}
+          </dt>
+          <div class="hmrc-list-with-actions__actions">
+            <dd class="hmrc-list-with-actions__action">
+              <a class="govuk-link" href="#" id="${id}" onclick="return change(this.id, ${counter})" >
+                <span aria-hidden="true">Change</span>
+                <span class="govuk-visually-hidden">Change Sydney Russell</span>
+              </a>
+            </dd>
+            <dd class="hmrc-list-with-actions__action">
+              <a class="govuk-link" href="${redirectPageName}">
+                <span aria-hidden="true">Remove</span>
+                <span class="govuk-visually-hidden">Remove Sydney Russell from the list</span>
+              </a>
+            </dd>
+          </div>
+        </div>`
+
+        return htmlElement
+
+      }
+      function getList(typeOfList) {
+        if (typeOfList == "") {
+          return Array()
+        } else {
+          return typeOfList.split(",")
+        }
+      }
+
+      function change(id, counter) {
+        const formId = "route_add_new_loading_place"
+        const formIdRedirect = "route_place_of_loading"
+        let form = document.getElementById(formId)
+
+        form.action = formIdRedirect
+        alert(counter)
+        document.getElementById("place-of-loading-index").value = counter
+        form.submit()
+        return true;
+      }
+
+
+//multipleCountries();
+
+    </script>
+
+
+  </div>
+</div>
+
+{% endblock %}

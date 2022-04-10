@@ -1,0 +1,173 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<div class="govuk-grid-row">
+
+
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="goods_details_shipping_containers" method="post" onsubmit="return redirect()"
+      id="form-item-name-or-code">
+      <a href="item_commodity_code.html" class="govuk-back-link">Back</a>
+
+      <span class="govuk-caption-l">Complete goods details</span>
+      <h1 class="govuk-heading-l">What is the commodity code for your item?</h1>
+      <details class="govuk-details" data-module="govuk-details">
+        <summary class="govuk-details__summary">
+          <span class="govuk-details__summary-text">
+            Classifying the goods
+          </span>
+        </summary>
+        <div class="govuk-details__text">
+          <p class="govuk-body">Import commodity codes are between 4 to 8 digit long.</p>
+          <p class="govuk-body">You must use the correct name or commodity code so you can:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>complete import declarations</li>
+            <li>check licences</li>
+            <li>check if any restrictions apply</li>
+            <li>pay the correct duties and VAT payments, if applicable</li>
+          </ul>
+          <p class="govuk-body">
+            If you don’t know the commodity code you can
+            <a href="https://www.trade-tariff.service.gov.uk/search?q=steel&input-autocomplete=steel" class="govuk-link"
+              target="_blank">ask HMRC for help classifying the goods (opens in a new tab)</a>
+            and contact the Tariff Classification Service.
+          </p>
+          <p class="govuk-body">You can add multiple commodities in the ENS declaration service.</p>
+        </div>
+      </details>
+
+      <div class="govuk-form-group">
+
+        <div id="more-detail-hint" class="govuk-hint">Search for goods by name or a 4 to 8 digits import commodity code
+        </div>
+        <div class="govuk-input__wrapper">
+          <input class="govuk-input govuk-input--width-50" id="weight" name="item-commodity-name-code" type="text"
+            spellcheck="false">
+          <input id="goods-item-routing" name="goods-item-routing" style="display:none">
+        </div>
+      </div>
+
+
+
+      <button class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+    </form>
+  </div>
+</div>
+</div>
+
+<script>
+  function redirect() {
+    let [consignor, consignee, notifiedParty, placeofLoading, placeOfUnloading] = getTupleItemProperties()
+
+    if ((consignor.length == 1 &&
+      consignee.length == 1 &&
+      notifiedParty.length == 0 &&
+      placeofLoading.length == 1 &&
+      placeOfUnloading.length == 1) ||
+      (consignor.length == 1 &&
+        consignee.length == 0 &&
+        notifiedParty.length == 1 &&
+        placeofLoading.length == 1 &&
+        placeOfUnloading.length == 1)) {
+
+
+      document.getElementById("form-item-name-or-code").action = "goods_details_shipping_containers"
+
+    } else if (consignor.length == 1 &&
+      consignee.length == 1 &&
+      notifiedParty.length == 1 &&
+      placeofLoading.length == 1 &&
+      placeOfUnloading.length == 1) {
+
+      document.getElementById("form-item-name-or-code").action = "goods_details__do_you_know_consignee"
+    }
+
+    else {
+
+      buildGoodsItemRoutePath()
+
+    }
+    return true
+
+  }
+  function getTupleItemProperties() {
+    let consignor = getList("{{ data['item-consignor-eori'] }}")
+    let consignee = getList("{{ data['item-consignee-eori'] }}")
+    let notifiedParty = getList("{{ data['notified-eori'] }}")
+    let placeofLoading = getList("{{ data['place-of-loading'] }}")
+    let placeOfUnloading = getList("{{ data['place-of-unloading'] }}")
+
+    return [consignor, consignee, notifiedParty, placeofLoading, placeOfUnloading]
+  }
+
+  function getList(typeOfList) {
+    if (typeOfList == "") {
+      return Array()
+    } else {
+      return typeOfList.split(",")
+    }
+  }
+
+  function buildGoodsItemRoutePath() {
+    let [consignor, consignee, notifiedParty, placeofLoading, placeOfUnloading] = getTupleItemProperties()
+    let selectedRoutes = Array()
+
+    if (consignor.length > 1) {
+      selectedRoutes.push("goods_details_your_consignor")
+    }
+
+
+    if (consignee.length >= 1 && notifiedParty.length >= 1) {
+      selectedRoutes.push("goods_details__do_you_know_consignee")
+
+    } else {
+      if (consignee.length > 1) {
+        selectedRoutes.push("goods_details_your_consignees")
+      }
+      if (notifiedParty.length > 1) {
+        selectedRoutes.push("goods_details_your_notified_parties")
+      }
+    }
+
+    if (placeofLoading.length > 1) {
+      selectedRoutes.push("goods_details_loading_places")
+    }
+    if (placeOfUnloading.length > 1) {
+      selectedRoutes.push("goods_details_unloading_places")
+    }
+
+
+    if (selectedRoutes.length > 0) {
+      document.getElementById("form-item-name-or-code").action = selectedRoutes.shift()
+    }
+    document.getElementById("goods-item-routing").value = selectedRoutes
+
+
+
+  }
+
+
+</script>
+
+
+{% endblock %}

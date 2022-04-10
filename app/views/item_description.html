@@ -1,0 +1,150 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="" method="post" onsubmit="return redirect()" id="form-item-description">
+        <a href="" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="150">
+            <div class="govuk-form-group">
+              <span class="govuk-caption-l">Goods details</span>
+              <h1 class="govuk-heading-l">What are the goods in your consignment?</h1>
+              <div id="with-hint-hint" class="govuk-hint">
+                <p class="govuk-body">Enter a brief description of the type of goods being transported e.g building supplies.</p>
+
+              </div>
+              <label class="govuk-label" for="event-name">
+                Type of goods
+              </label>
+                <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" name="items-description" rows="5" aria-describedby="with-hint-info with-hint-hint"></textarea>
+              </div>
+
+            <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+              You can enter up to 150 characters
+            </div>
+            <input id="goods-item-routing" name="goods-item-routing" style="display:none">
+          </div>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+
+    </div>
+  </div>
+  <script>
+    function redirect() {
+      let [consignor, consignee, notifiedParty, placeofLoading, placeOfUnloading] = getTupleItemProperties()
+  
+      if ((consignor.length == 1 &&
+        consignee.length == 1 &&
+        notifiedParty.length == 0 &&
+        placeofLoading.length == 1 &&
+        placeOfUnloading.length == 1) ||
+        (consignor.length == 1 &&
+          consignee.length == 0 &&
+          notifiedParty.length == 1 &&
+          placeofLoading.length == 1 &&
+          placeOfUnloading.length == 1)) {
+  
+  
+        document.getElementById("form-item-description").action = "goods_details_shipping_containers"
+  
+      } else if (consignor.length == 1 &&
+        consignee.length == 1 &&
+        notifiedParty.length == 1 &&
+        placeofLoading.length == 1 &&
+        placeOfUnloading.length == 1) {
+  
+        document.getElementById("form-item-description").action = "goods_details__do_you_know_consignee"
+      }
+  
+      else {
+  
+        buildGoodsItemRoutePath()
+  
+      }
+      return true
+  
+    }
+    function getTupleItemProperties() {
+      let consignor = getList("{{ data['item-consignor-eori'] }}")
+      let consignee = getList("{{ data['item-consignee-eori'] }}")
+      let notifiedParty = getList("{{ data['notified-eori'] }}")
+      let placeofLoading = getList("{{ data['place-of-loading'] }}")
+      let placeOfUnloading = getList("{{ data['place-of-unloading'] }}")
+  
+      return [consignor, consignee, notifiedParty, placeofLoading, placeOfUnloading]
+    }
+  
+    function getList(typeOfList) {
+      if (typeOfList == "") {
+        return Array()
+      } else {
+        return typeOfList.split(",")
+      }
+    }
+  
+    function buildGoodsItemRoutePath() {
+      let [consignor, consignee, notifiedParty, placeofLoading, placeOfUnloading] = getTupleItemProperties()
+      let selectedRoutes = Array()
+  
+      if (consignor.length > 1) {
+        selectedRoutes.push("goods_details_your_consignor")
+      }
+  
+  
+      if (consignee.length >= 1 && notifiedParty.length >= 1) {
+        selectedRoutes.push("goods_details__do_you_know_consignee")
+  
+      } else {
+        if (consignee.length > 1) {
+          selectedRoutes.push("goods_details_your_consignees")
+        }
+        if (notifiedParty.length > 1) {
+          selectedRoutes.push("goods_details_your_notified_parties")
+        }
+      }
+  
+      if (placeofLoading.length > 1) {
+        selectedRoutes.push("goods_details_loading_places")
+      }
+      if (placeOfUnloading.length > 1) {
+        selectedRoutes.push("goods_details_unloading_places")
+      }
+  
+  
+      document.getElementById("form-item-description").action = selectedRoutes.shift()
+      document.getElementById("goods-item-routing").value = selectedRoutes
+  
+      
+  
+    }
+  
+    
+  </script>
+{% endblock %}

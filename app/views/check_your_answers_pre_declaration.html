@@ -1,0 +1,193 @@
+{% extends "layout.html" %}
+
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<nav class="hmrc-language-select" aria-label="Language switcher">
+  <ul class="hmrc-language-select__list">
+    <li class="hmrc-language-select__list-item">
+      <span aria-current="true">English</span>
+    </li>
+    <li class="hmrc-language-select__list-item">
+      <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+        <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+        <span aria-hidden="true">Cymraeg</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<div class="govuk-grid-row">
+  <div class="govuk-width-container">
+
+    <form class="form" action="add_another_item" method="post" id="cya-pre-dec" onsubmit="return redirectPage()">
+      <a href="define_weight" class="govuk-back-link">Back</a>
+
+      <main class="govuk-main-wrapper " id="main-content" role="main">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds-from-desktop">
+
+            <h1 class="govuk-heading-l">Check your answers</h1>
+
+
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Declaration reference
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['declaration_reference'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="name_your_ENS">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Declaration location
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['place-of-completing'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="choose_carrier">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Your company is carrier
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['is-carrier'] == "define_weight") %}
+                  Yes
+                  {% else %}
+                  No
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="choose_carrier">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              {% if (data['is-carrier'] == "carrier_eori") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Carrier eori number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['carrier_eori'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="item_provide_crn">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Give gross weight
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['item-weight'] == "check_your_answers_pre_declaration") %}
+                  Per item
+                  {% else %}
+                  Overall
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="item_gross_weight">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+
+              {% if (data['item-weight'] == "item_gross_weight") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Gross weight
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['weight-of-goods'] }}kg
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="item_gross_weight">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              <!-- <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Mode of transport
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['mode-of-transport'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="mode_of_transport">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div> -->
+            </dl>
+            <!--
+
+            <h2 class="govuk-heading-m">Save your answers</h2>
+
+            <p class="govuk-body">Your answers must be as accurate and complete as you can make them. </p> -->
+
+            <button class="govuk-button" data-module="govuk-button">
+              Save and continue
+            </button>
+    </form>
+  </div>
+</div>
+</main>
+</div>
+</div>
+
+<script>
+  function redirectPage() {
+    const carrier = "{{ data['is-carrier'] }}";
+    let form = document.getElementById("cya-pre-dec");
+
+    if (carrier === "Yes") {
+      form.action = "task_list_with_carrier";
+    } else {
+      form.action = "task_list_with_carrier";
+    }
+  }
+
+</script>
+
+{% endblock %}

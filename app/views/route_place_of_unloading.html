@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+
+{% block header %}
+<link rel="stylesheet" href="/public/autocomplete/location-autocomplete.min.css" />
+{# Set serviceName in config.js. #}
+{{ govukHeader({
+homepageUrl: "/",
+serviceName: serviceName,
+serviceUrl: "/",
+containerClasses: "govuk-width-container",
+navigation: [
+{
+href: "/",
+text: "Sign out"
+}
+]
+}) }}
+{% endblock %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-two-thirds">
+    <form class="form" action="route_add_places_of_unloading" method="post" onsubmit="return redirect()">
+      <a href="consignment_arrive_date" class="govuk-back-link" onclick="history.back()">Back</a>
+
+      <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <span class="govuk-caption-l">Route details</span>
+        <h1 class="govuk-heading-l">Where is the place of unloading?</h1>
+      </legend>
+
+
+
+      <input id="place-of-unloading" name="place-of-unloading" style="visibility:hidden">
+      <div class="govuk-form-group">
+        <label for="my-autocomplete" class="govuk-label" for="three-quarters">
+          Country of unloading
+        </label>
+        <div class="govuk-body">
+          <select id="location-autocomplete">
+            <option value="territory:AE-AZ"></option>
+            <option value="country:AF">Afghanistan</option>
+            <option value="country:AE-AJ">Ajman</option>
+          </select>
+
+          <script type="text/javascript" src="/public/autocomplete/location-autocomplete.min.js"></script>
+
+          <script type="text/javascript">
+            openregisterLocationPicker({
+              selectElement: document.getElementById('location-autocomplete'),
+              url: '/public/autocomplete/location-autocomplete-graph.json'
+            });
+          </script>
+        </div>
+      </div>
+
+      <div class="govuk-form-group">
+        <label class="govuk-label" for="width-20">
+          Port, airport and any other place where the goods are unloaded
+        </label>
+        <input class="govuk-input govuk-input--width-30" id="place-of-unloading-location" name="place-of-unloading-location" type="text">
+      </div>
+
+      <button class="govuk-button" data-module="govuk-button">
+        Save and continue
+      </button>
+    </form>
+
+  </div>
+</div>
+<script>
+
+  function redirect() {
+    let elementList = "{{ data['place-of-unloading'] }}"
+    let index = "{{ data['place-of-unloading-index'] }}"
+
+    if (index < elementList.length && index != "") {
+
+      let changeElement = (elementList, index, elementToAdd) => {
+        elementList[index] = elementToAdd
+        return elementList
+      }
+      return updateElementList(changeElement, elementList, index);
+    } else {
+
+      let addElement = (elements, index, elementToAdd) => {
+        if (!elements.includes(elementToAdd)) {
+          elements.push(elementToAdd)
+        }
+        return elements
+      }
+      return updateElementList(addElement, elementList, index);
+    }
+  }
+
+  function updateElementList(updateList, elementList, index) {
+    let elementToAdd = document.getElementById('location-autocomplete').value
+
+    let isElementPopulated = !(elementToAdd == "" || elementToAdd == null)
+
+    if (isElementPopulated) {
+      let elements = elementList == "" ? Array() : elementList.split(",")
+
+
+      elements = updateList(elements, index, elementToAdd)
+
+      document.getElementById("place-of-unloading").value = elements
+
+    }
+    return isElementPopulated
+  }
+
+  window.onload = function () {
+    let elementList = getList("{{ data['place-of-unloading'] }}")
+    let index = "{{ data['place-of-unloading-location-index'] }}"
+
+    if (index < elementList.length && index != "") {
+      document.getElementById('location-autocomplete').value = elementList[index]
+    }
+  };
+
+  function getList(typeOfList) {
+    if (typeOfList == "") {
+      return Array()
+    } else {
+      return typeOfList.split(",")
+    }
+  }
+
+</script>
+{% endblock %}

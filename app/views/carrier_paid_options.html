@@ -1,0 +1,94 @@
+
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="check_your_answers_item1" method="post">
+        <a href="transport_contract_ref_numbers" class="govuk-back-link">Back</a>
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <span class="govuk-caption-l">Complete goods details</span>
+                <h1 class="govuk-fieldset__heading">
+                  How will the carrier be paid?
+                </h1>
+              </legend>
+              <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" type="radio" value="Account-holder-with-carrier" name="paid-option" id="paid-option-5">
+                  <label class="govuk-label govuk-radios__label" for="paid-option-5">
+                    Account holder with carrier
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" type="radio" value="Electronic-credit-transfer" name="paid-option" id="paid-option-4">
+                  <label class="govuk-label govuk-radios__label" for="paid-option-4">
+                    Electronic credit transfer
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" type="radio" value="Not-pre-paid" name="paid-option" id="paid-option-6">
+                  <label class="govuk-label govuk-radios__label" for="paid-option-6">
+                    Not pre-paid
+                  </label>
+                </div>
+              <div class="govuk-radios" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" type="radio" value="Cash" name="paid-option" id="paid-option-1">
+                  <label class="govuk-label govuk-radios__label" for="paid-option-1">
+                    Payment in cash
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" type="radio" value="Credit-card" name="paid-option" id="paid-option-2">
+                  <label class="govuk-label govuk-radios__label" for="paid-option-2">
+                    Payment by credit card
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" type="radio" value="Cheque" name="paid-option" id="paid-option-3">
+                  <label class="govuk-label govuk-radios__label" for="paid-option-3">
+                    Payment by cheque
+                  </label>
+                </div>
+
+
+                  <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" type="radio" value="Other" name="paid-option" id="paid-option-7">
+                    <label class="govuk-label govuk-radios__label" for="paid-option-7">
+                      Other
+                    </label>
+                  </div>
+              </div>
+
+            </fieldset>
+          </div>
+
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}

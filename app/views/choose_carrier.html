@@ -1,0 +1,105 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="" method="post" onsubmit="return redirectPage()" id="choose-carrier-form">
+        <a href="where_completing_declaration.html" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group is_the_carrier">
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+                Is your company the carrier for this consignment?
+              </h1>
+            </legend>
+
+            <details class="govuk-details" data-module="govuk-details">
+              <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                  Help with carriers
+                </span>
+              </summary>
+              <div class="govuk-details__text">
+                <p class="govuk-body">The carrier is defined as the operator of the 'active means of transport'.</p>
+                <p class="govuk-body">This means the vessel, aircraft, train or road vehicle used to bring the goods into Great Britain.</p>
+                <p class="govuk-body">For example, if a freight truck is on a ferry and unaccompanied, the ferry company is the carrier.</p>
+                <p class="govuk-body">If a truck is accompanied and driven on and off the ferry by its driver, the haualge company is the
+                  carrier.
+                </p>
+              </div>
+            </details>
+
+            
+            <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="is-carrier" name="is-carrier" type="radio" value="define_weight">
+                <label class="govuk-label govuk-radios__label" for="is_carrier_yes">
+                  Yes
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="is-carrier" name="is-carrier" type="radio" value="carrier_eori">
+                <label class="govuk-label govuk-radios__label" for="is_carrier_no">
+                  No
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function redirectPage() {
+      let checked = false;
+      document.getElementsByName("is-carrier").forEach((x) => {
+        if(x.checked) {
+          document.getElementById("choose-carrier-form").action = x.value;
+          checked = true;
+        }
+      })
+      return checked;
+    }
+
+  </script>
+
+{% endblock %}

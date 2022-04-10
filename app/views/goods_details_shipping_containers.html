@@ -1,0 +1,111 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+<div class="govuk-grid-row">
+
+  <div class="govuk-grid-column-two-thirds">
+
+    <form class="form" action="" method="post" onsubmit="return redirect()" id="form-goods-details-shipping-container">
+      <a href="#" class="govuk-back-link">Back</a>
+
+      <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">Complete goods details</span>
+            <h1 class="govuk-fieldset__heading">
+              Are the goods in shipping containers or trailer?
+            </h1>
+          </legend>
+          <div id="changed-name-hint" class="govuk-hint">
+            Tell us if the goods are being sent in a shipping container.
+          </div>
+          <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="changed-name" name="goods-is-in-container" type="radio" value="item_container_number">
+              <label class="govuk-label govuk-radios__label" for="changed-name">
+                Yes
+              </label>
+            </div>
+            <div class="govuk-radios__item">
+              <input class="govuk-radios__input" id="changed-name-2" name="goods-is-in-container" type="radio" value="is-in-container">
+              <label class="govuk-label govuk-radios__label" for="changed-name-2">
+                No
+              </label>
+            </div>
+          </div>
+
+        </fieldset>
+      </div>
+
+      </div>
+    </div>
+
+    <script>
+      function redirect() {
+        let checked = false;
+        document.getElementsByName("shipping_containers").forEach(x => {
+          if (x.checked) {
+            document.getElementById("form-item-shipping-container").action = x.value
+            checked = true
+          }
+        })
+        return checked
+      }
+    </script>
+
+
+
+
+<button class="govuk-button" data-module="govuk-button">
+  Save and continue
+</button>
+</form>
+
+
+
+<script>
+  function redirect() {
+    let checked = false;
+    document.getElementsByName("goods-is-in-container").forEach(x => {
+      if (x.checked) {
+
+        if (x.value == "item_container_number") {
+          document.getElementById("form-goods-details-shipping-container").action = x.value
+        } else {
+          let itemWeight = "{{data['item-weight']}}"
+          if (itemWeight == "item_gross_weight") {
+            document.getElementById("form-goods-details-shipping-container").action = "item_packaging"
+          } else {
+            document.getElementById("form-goods-details-shipping-container").action = "goods_item_gross_weight"
+          }
+        }
+
+        checked = true
+      }
+    })
+    return checked
+  }
+</script>
+
+
+
+
+
+{% endblock %}

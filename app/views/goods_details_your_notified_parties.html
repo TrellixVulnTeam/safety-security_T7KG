@@ -1,0 +1,132 @@
+
+{% extends "layout.html" %}
+{% extends "hmrc/layouts/account-header.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+      <form class="form" action="" method="post" onsubmit="return redirect()" id="form-item-select-notified-party">
+        <a href="e" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Complete goods details</span>
+              <h1 class="govuk-fieldset__heading">
+                Your notified party(s)
+              </h1>
+            </legend>
+            <div id="changed-name-hint" class="govuk-hint">
+              Select the relevant notified party which apply.
+            </div>
+            <div class="govuk-radios" data-module="govuk-radios" id="element-list">
+       
+            </div>
+            <input id="goods-item-routing" name="goods-item-routing" style="display:none">
+          </fieldset>
+        </div>
+
+
+          </div>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+
+
+
+
+      <script>
+        function redirect() {
+          let checked = false;
+          document.getElementsByName("selected-notified-party").forEach((x) => {
+            if (x.checked) {
+              let selectedRoutes = getList("{{data['goods-item-routing']}}")
+              document.getElementById("goods-item-routing").value = selectedRoutes
+             
+              if(selectedRoutes.length > 0)
+              {
+                document.getElementById("form-item-select-notified-party").action = selectedRoutes.shift()
+                document.getElementById("goods-item-routing").value = selectedRoutes
+              }else{
+                document.getElementById("form-item-select-notified-party").action = "goods_details_shipping_containers"
+              }
+              checked = true;
+            }
+          })
+          return checked;
+      
+        }
+        window.onload = function () {
+      
+          displayList()
+      
+        }
+        function displayList() {
+      
+          let elementList = getList("{{data['notified-eori']}}")
+
+          let elementInnerHtml = ""
+          var counter = 0;
+          elementList.forEach(element => {
+            counter++;
+            elementInnerHtml = elementInnerHtml.concat(getHtmlElement(element, counter))
+          })
+      
+      
+          let elementListDOM = document.getElementById("element-list")
+          elementListDOM.innerHTML = elementInnerHtml
+      
+        }
+      
+        function getHtmlElement(element, counter) {
+          let htmlElement = `<div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="selected-notified-party-option-${counter}" name="selected-notified-party" type="radio"
+                      value="${element}">
+                    <label class="govuk-label govuk-radios__label" for="selected-notified-party-option">
+                      GB ${element}
+                    </label>
+                  </div>`
+      
+          return htmlElement
+      
+        }
+        function getList(typeOfList) {
+          if (typeOfList == "") {
+            return Array()
+          } else {
+            return typeOfList.split(",")
+          }
+        }
+      </script>
+      
+      
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,441 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-width-container">
+
+    <form class="form" action="task_list_no_carrier" method="post" id="form-cya-transport" onsubmit="return redirectPage()">
+      <a href="transport_details.html" class="govuk-back-link">Back</a>
+
+      <main class="govuk-main-wrapper " id="main-content" role="main">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds-from-desktop">
+
+            <h1 class="govuk-heading-l">Check your answers</h1>
+
+
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Mode of transport
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['transport-mode'] == "transport_details") %}
+                  Roll on, Roll off ferry (RoRo) - accompanied(self-drive)
+                  {% endif %}
+
+                  {% if (data['transport-mode'] == "transportation_roro_unacompanied")%}
+                  Roll on, Roll off ferry (RoRo) - unaccompanied
+                  {% endif %}
+
+                  {%if (data['transport-mode'] == "transportation_maritime")%}
+                  Maritime
+                  {% endif %}
+
+                  {% if (data['transport-mode'] == "transportation_rail")%}
+                  Rail
+                  {% endif %}
+
+                  {% if (data['transport-mode'] == "transportation_road")%}
+                  Road
+                  {% endif %}
+
+                  {% if (data['transport-mode'] == "transportation_air")%}
+                  Air
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              {% if (data['transport-mode'] == "transport_details") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Country of registration
+                </dt>
+                <dd class="govuk-summary-list__value">
+                 {{data['transport-nationality']}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transportation_roro_unacompanied" ) %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Country of registration
+                </dt>
+                <dd class="govuk-summary-list__value">
+                 {{data['transport-nationality']}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transportation_road" ) %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Vehicle registration  number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['vehicle-registration-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transport_details" ) %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Vehicle registration  number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['vehicle-registration-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+
+              {% if (data['transport-mode'] == "transport_details" ) %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Ferry company
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['ferry-company-name'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transportation_roro_unacompanied" ) %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Ferry company
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['ferry-company-name'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transportation_road" ) %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Ferry company
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['ferry-company-name'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+
+              {% if (data['transport-mode'] == "transportation_road" ) %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Registered trailer number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['registered-trailer-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transport_details" ) %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Registered trailer number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['registered-trailer-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transportation_roro_unacompanied" ) %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Registered trailer number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['registered-trailer-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  IMO number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['imo-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transportation_maritime") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  IMO ship number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['registered-imo-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transportation_maritime") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Conveyance number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    {{ data['conveyance_number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transportation_rail" ) %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Wagon number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['wagon_number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport-mode'] == "transportation_air") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  IATA number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['iata_number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Documents added
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['transport_more_docs'] == "transport_contract_ref_numbers") %}
+                  Yes
+                  {% else %}
+                  No
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              {% if (data['transport_more_docs'] == "transport_contract_ref_numbers") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Type of document
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['contracts-ref'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              {% if (data['transport_more_docs'] == "transport_contract_ref_numbers") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Document reference or identification number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['document-reference-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Seals added
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['transport_add_seal'] == "transportation_seals_number") %}
+                  Yes
+                  {% else %}
+                  No
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              {% if (data['transport_add_seal'] == "transportation_seals_number") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Seals identity number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['seals-identity-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+            </dl>
+
+            <!-- <h2 class="govuk-heading-m">Save your answers</h2>
+
+            <p class="govuk-body">Save your answers to complete the transportation details section.</p> -->
+
+            <button class="govuk-button" data-module="govuk-button">
+              Save and continue
+            </button>
+          </form>
+          </div>
+          </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- <script>
+    function redirectPage() {
+      const carrier = "{{ data['is-carrier'] }}";
+      let form = document.getElementById("form-cya-transport");
+
+      if(carrier === "Yes") {
+        form.action = "task_list_no_carrier_journey_completed";
+      } else {
+        form.action = "task_list_with_carrier_3sections_completed";
+      }
+    }
+
+  </script> -->
+
+{% endblock %}

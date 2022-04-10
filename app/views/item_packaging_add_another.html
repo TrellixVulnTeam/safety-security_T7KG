@@ -1,0 +1,189 @@
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+<div class="govuk-grid-row">
+
+
+  <div class="govuk-width-container">
+    <a href="item_check_your_answers" class="govuk-back-link">Back</a>
+
+    <main class="govuk-main-wrapper " id="main-content" role="main">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds-from-desktop">
+          <span class="govuk-caption-l">Goods details</span>
+          <h2 class="govuk-heading-l">Packaging of the item</h2>
+
+          <p>Details of your packaging are shown below. You can add, amend or remove a packaging type.</p>
+          <h1 class="govuk-heading-m">You have added 1 packaging type below</h1>
+          <dl class="govuk-summary-list govuk-!-margin-bottom-9" id="element-list">
+        
+          </dl>
+
+
+          <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                <h2 class="govuk-fieldset__heading">
+                  Do you need to add another type of packaging?
+                </h2>
+              </legend>
+              <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="item-add-another-yes" name="item-add-another" type="radio"
+                    value="item_packaging">
+                  <label class="govuk-label govuk-radios__label" for="where-do-you-live">
+                    Yes
+                  </label>
+                </div>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="item-add-another-no" name="item-add-another" type="radio"
+                    value="item_add_doc">
+                  <label class="govuk-label govuk-radios__label" for="where-do-you-live-2">
+                    No
+                  </label>
+                </div>
+
+              </div>
+
+            </fieldset>
+          </div>
+
+
+          <form action="item_commercial_reference_number" method="post" id="package-add-another"
+            onsubmit="return redirect()">
+            <input id="packaging-type-index" name="packaging-type-index" style="display:none">
+
+
+            <button class="govuk-button" data-module="govuk-button">
+              Save and continue
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+  </form>
+</div>
+<script>
+  function redirect() {
+
+    if (document.getElementById("item-add-another-yes").checked) {
+
+      document.getElementById("package-add-another").action = "item_packaging"
+      return true;
+
+    } else if (document.getElementById("item-add-another-no").checked) {
+      const preDecCrn = "{{ data['pre-dec-crn'] }}";
+
+      if (preDecCrn == "pre_dec_provide_crn") {
+
+        document.getElementById("package-add-another").action = "item_add_doc_after_crn"
+      } else {
+        document.getElementById("package-add-another").action = "item_add_doc"
+
+      }
+      return true
+
+    } else {
+      return false
+    }
+
+
+  }
+  window.onload = function () {
+
+    displayList()
+
+  }
+
+  function displayList() {
+
+    let elementList = getList("{{data['packaging-type']}}")
+
+
+
+    let elementInnerHtml = ""
+    var counter = 0;
+    elementList.forEach(element => {
+
+      elementInnerHtml = elementInnerHtml.concat(getHtmlElement(element, counter))
+      counter++;
+    })
+
+
+    let elementListDOM = document.getElementById("element-list")
+    elementListDOM.innerHTML = elementInnerHtml
+
+  }
+
+  function getHtmlElement(element, counter) {
+    const redirectPageName = "item_packaging"
+    const nameProperty = "packaging-type-index"
+    const id = `packaging-type-index-${counter}`
+
+    let htmlElement = `<div class="hmrc-list-with-actions__item">
+  <dt class="hmrc-list-with-actions__name">
+    ${element}
+  </dt>
+  <div class="hmrc-list-with-actions__actions">
+    <dd class="hmrc-list-with-actions__action">
+      <a class="govuk-link" href="#" id="${id}" onclick="return change(this.id, ${counter}, '${element}')" >
+        <span aria-hidden="true">Change</span>
+        <span class="govuk-visually-hidden">Change Sydney Russell</span>
+      </a>
+    </dd>
+    <dd class="hmrc-list-with-actions__action">
+      <a class="govuk-link" href="${redirectPageName}">
+        <span aria-hidden="true">Remove</span>
+        <span class="govuk-visually-hidden">Remove Sydney Russell from the list</span>
+      </a>
+    </dd>
+  </div>
+</div>`
+
+    return htmlElement
+
+  }
+  function stringContainsNumber(_string) {
+    return /\d/.test(_string);
+  }
+  function getList(typeOfList) {
+    if (typeOfList == "") {
+      return Array()
+    } else {
+      return typeOfList.split(",")
+    }
+  }
+
+  function change(id, counter, element) {
+    const formId = "package-add-another"
+    const formIdRedirect = "item_packaging"
+    let form = document.getElementById(formId)
+
+    form.action = formIdRedirect
+    document.getElementById("packaging-type-index").value = counter
+    form.submit()
+    return true;
+  }
+</script>
+
+{% endblock %}

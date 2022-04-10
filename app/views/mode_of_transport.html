@@ -1,0 +1,145 @@
+
+{% extends "layout.html" %}
+
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <nav class="hmrc-language-select" aria-label="Language switcher">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">English</span>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg">
+          <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
+          <span aria-hidden="true">Cymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+      <form class="form" action="" method="post" id="carrier" onsubmit="return redirectPage()">
+        <a href="" class="govuk-back-link">Back</a>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <span class="govuk-caption-l">Transport details</span>
+              <h1 class="govuk-fieldset__heading">What is the mode of transport?</h1>
+            </legend>
+            <div id="changed-name-hint" class="govuk-hint">
+              Tell us how your goods will enter Great Britain.
+            </div>
+
+
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <!-- <input class="govuk-radios__input" id="mode-of-transport-5" name="transport-mode" type="radio" data-value="Air" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}"> -->
+                <input class="govuk-radios__input" id="mode-of-transport-5" name="transport-mode" type="radio" data-value="Air" value="transportation_air">
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport-5">
+                  Air
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <!-- <input class="govuk-radios__input" id="mode-of-transport-3" name="transport-mode" type="radio" data-value="Maritime" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}"> -->
+                <input class="govuk-radios__input" id="mode-of-transport-3" name="transport-mode" type="radio" data-value="Maritime" value="transportation_maritime">
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport-3">
+                  Maritime
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="mode-of-transport-4" name="transport-mode" type="radio" data-value="Rail" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}">
+                  <input class="govuk-radios__input" id="mode-of-transport-4" name="transport-mode" type="radio" data-value="Rail" value="transportation_rail">
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport-4">
+                  Rail
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <!-- <input class="govuk-radios__input" id="mode-of-transport-4" name="transport-mode" type="radio"  data-value="Road  (including Channel Tunnel shuttle service)" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}"> -->
+                <input class="govuk-radios__input" id="mode-of-transport-4" name="transport-mode" type="radio"  data-value="Road  (including Channel Tunnel shuttle service)" value="transportation_road">
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport-4">
+                  Road  (including Channel Tunnel shuttle service)
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="roro-accompanied" name="transport-mode" type="radio" data-value="RoRo - accompanied (self-drive)" value="transport_details">
+                <!-- <input class="govuk-radios__input" id="mode-of-transport" name="transport-mode type="radio" data-value="RoRo - accompanied (self-drive)" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}"> -->
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport">
+                  Roll on, Roll off ferry (RoRo) - accompanied (self-drive)
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="roro-unaccompanied" name="transport-mode" type="radio" data-value="RoRo - unaccompanied" value="transportation_roro_unacompanied">
+                <!-- <input class="govuk-radios__input" id="mode-of-transport-2" name="transport-mode" type="radio" data-value="RoRo - unaccompanied" value="{% if data ['is_carrier'] == 'Yes'%}task_list_with_carrier{%else%}task_list_no_carrier{%endif%}"> -->
+                <label class="govuk-label govuk-radios__label" for="mode-of-transport-2">
+                  Roll on, Roll off ferry (RoRo) - unaccompanied
+                </label>
+              </div>
+
+
+
+
+            </div>
+
+          </fieldset>
+        </div>
+
+        <input type="hidden" name="mode-of-transport">
+        <button class="govuk-button" data-module="govuk-button">
+          Save and continue
+        </button>
+      </form>
+
+      <script>
+
+        function redirectPage() {
+          let checked = false;
+        document.getElementsByName("transport-mode").forEach((x) => {
+          if(x.checked) {
+            document.getElementById("carrier").action =   getTransportModeName(x.value)
+            checked = true;
+          }
+        })
+        return checked;
+      }
+
+      function getTransportModeName(transportType) {
+        let updatedTranpsortType = ""
+        switch (transportType) {
+          case "transport_details":
+            updatedTranpsortType = "transportation_nationality"
+            break;
+          case "transportation_roro_unacompanied":
+            updatedTranpsortType = "transportation_nationality"
+            break;
+          default:
+            updatedTranpsortType = transportType
+        }
+          return updatedTranpsortType
+      }
+
+      </script>
+
+
+    </div>
+  </div>
+
+{% endblock %}

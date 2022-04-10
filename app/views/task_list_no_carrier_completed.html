@@ -1,0 +1,142 @@
+
+{% extends "layout.html" %}
+
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+      <h1 class="govuk-heading-xl" style="margin-bottom:5px">
+        <!-- ENS declaration: {{ data['ens-name'] }} -->
+        ENS declaration
+      </h1>
+
+      <p class="govuk-body" style="font-size:24px"><strong>Reference:</strong> {{ data['declaration_reference'] }}</p>
+
+
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Declaration incomplete</h2>
+      <p class="govuk-body govuk-!-margin-bottom-7">You have completed 3 of 6 sections.</p>
+
+      <ol class="app-task-list">
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">1. </span> Pre-declaration
+            <span class="govuk-caption-m" style="margin-top:5px;">Complete your pre-declaration details. After completion,  you can only change certain answers. If you need to change others then you will need to restart the declaration.</span>
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="check_your_answers_pre_declaration" aria-describedby="eligibility-status">
+                  Pre-declaration
+                </a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag" id="eligibility-status">completed</strong>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">2. </span> Journey
+            <span class="govuk-caption-m" style="margin-top:5px;">Tell us how the consignment of goods will get to Great Britain.</span>
+          </h2>
+          <ul class="app-task-list__items">
+
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="check_your_answers_transport_details" aria-describedby="list-convictions-status">
+                  Transport details
+                </a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag" id="list-convictions-status">completed</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name ">
+                <a href="check_your_answers_route_details" aria-describedby="list-convictions-status">
+                  Route details
+                </a>
+              </span>
+              <strong class="govuk-tag app-task-list__tag" id="list-convictions-status">completed</strong>
+            </li>
+
+          </ul>
+        </li>
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">3. </span> Parties
+            <span class="govuk-caption-m" style="margin-top:5px;">List all consignors, consignees and notified parties.</span>
+          </h2>
+          <ul class="app-task-list__items">
+
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="item_identify_consignor" aria-describedby="list-convictions-status">
+                  Consignors
+                </a>
+              </span>
+              <strong class="govuk-tag govuk-tag--purple app-task-list__tag" id="list-convictions-status">Not started</strong>
+            </li>
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name ">
+                <a href="#" aria-describedby="list-convictions-status">
+                  Consignees and notified parties
+                </a>
+              </span>
+              <strong class="govuk-tag govuk-tag--purple app-task-list__tag" id="list-convictions-status">Not started</strong>
+            </li>
+
+          </ul>
+        </li>
+
+
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">4. </span> Goods
+            <span class="govuk-caption-m" style="margin-top:5px;">If your consignment has more than one goods item, you’ll need to describe each one.</span>
+          </h2>
+          <ul class="app-task-list__items">
+            <li class="app-task-list__item">
+              <span class="app-task-list__task-name">
+                <a href="" aria-describedby="read-declaration-status">
+                  Goods details
+                </a>
+              </span>
+              <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">cannot start yet</strong>
+            </li>
+          </ul>
+        </li>
+      </ol>
+
+      <h2 class="govuk-heading-m">Check and submit</h2>
+      <p class="govuk-body">You must complete all sections before you can submit your declaration.</p>
+
+      <button disabled="disabled" aria-disabled="true" class="govuk-button govuk-button--disabled" data-module="govuk-button">
+        Submit declaration
+      </button>
+
+
+
+    </div>
+  </div>
+
+{% endblock %}

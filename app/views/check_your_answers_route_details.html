@@ -1,0 +1,232 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+
+
+  <div class="govuk-grid-row">
+
+
+    <div class="govuk-width-container">
+
+    <form class="form" action="task_list_no_carrier_completed" method="post" id="form-cya-route-details" onsubmit="return redirectPage()">
+      <a href="task_list_no_carrier_completed.html" class="govuk-back-link">Back</a>
+
+      <main class="govuk-main-wrapper " id="main-content" role="main">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds-from-desktop">
+
+
+            <h1 class="govuk-heading-l">Check your answers</h1>
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Country of departure
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['origin-country-departure'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Country of loading
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['place-of-loading'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Place of loading
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['place-of-loading-location'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Goods pass through other countries
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['goods-passing'] == "route_of_consigment") %}
+                  Yes
+                  {% else %}
+                  No
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              {% if (data['goods-passing'] == "route_of_consigment") %}
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Country on route
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['consignment-country'] }}<br>
+                  <!-- {{ data['consignment-country'] }} -->
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              {% endif %}
+
+              <!-- <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Second country on route
+                </dt>
+                <dd class="govuk-summary-list__value">
+
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div> -->
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Customs office
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['customs-office'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Date of arrival
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['consignment-arrived-day'] }}/{{ data['consignment-arrived-month']}}/{{ data['consignment-arrived-year']}}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Time of arrival
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['consignment-arrived-hour']}}:{{ data['consignment-arrived-minute'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Country of unloading
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['place-of-unloading'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Place of unloading
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['place-of-unloading-location'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+            </dl>
+
+            <!-- <h2 class="govuk-heading-m">Save your answers</h2>
+
+            <p class="govuk-body">Your answers shoud be as accurate and complete as you can make them.
+              Once you've submitted the declaration, journey details can be amended up to the point that the goods arrive at the border.
+             </p> -->
+
+            <button class="govuk-button" data-module="govuk-button">
+              Save and continue
+            </button>
+          </form>
+          </div>
+          </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- <script>
+    function redirectPage() {
+      const carrier = "{{ data['is-carrier'] }}";
+      let form = document.getElementById("form-cya-route-details");
+
+      if(carrier === "Yes") {
+        form.action = "task_list_no_carrier_completed";
+      } else {
+        form.action = "task_list_with_carrier_2sections_completed";
+      }
+    }
+
+  </script> -->
+
+{% endblock %}

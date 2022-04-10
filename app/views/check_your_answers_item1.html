@@ -1,0 +1,351 @@
+
+{% extends "layout.html" %}
+
+{% block pageTitle %}
+  GOV.UK Prototype Kit
+{% endblock %}
+
+{% block content %}
+
+
+
+  <div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+      <strong class="govuk-tag govuk-phase-banner__content__tag">
+        alpha
+      </strong>
+      <span class="govuk-phase-banner__text">
+        This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+      </span>
+    </p>
+  </div>
+
+  <div class="govuk-grid-row">
+    <div class="govuk-width-container">
+
+    <form class="form" action="add_another_item" method="post" id="carrier">
+      <a href="add_a_payment_method.html" class="govuk-back-link">Back</a>
+
+      <main class="govuk-main-wrapper " id="main-content" role="main">
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds-from-desktop">
+
+            <h1 class="govuk-heading-l">Check your answers</h1>
+
+            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Known commodity code
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['item-commodity-code'] == "item_name_or_code") %}
+                  Yes
+                  {% else %}
+                  No
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              {% if (data['item-commodity-code'] == "item_name_or_code") %}
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Commodity code
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ data['item-commodity-name-code'] }}
+                  </dd>
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="carrier_eori">
+                      Change<span class="govuk-visually-hidden"> name</span>
+                    </a>
+                  </dd>
+                </div>
+              {% endif %}
+
+              {% if (data['item-commodity-code'] == "item_description") %}
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Goods in the consignment
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ data['items-description'] }}
+                  </dd>
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="carrier_eori">
+                      Change<span class="govuk-visually-hidden"> name</span>
+                    </a>
+                  </dd>
+                </div>
+              {% endif %}
+
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Goods in shipping containers or trailers
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['shipping_containers'] == "item_container_number") %}
+                  Yes
+                  {% else %}
+                  No
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              {% if (data['shipping_containers'] == "item_container_number") %}
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Container or trailer number
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ data['add-container_number'] }}
+                  </dd>
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="carrier_eori">
+                      Change<span class="govuk-visually-hidden"> name</span>
+                    </a>
+                  </dd>
+                </div>
+              {% endif %}
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Item Weight
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['weight-of-goods'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Packaging
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['contracts-ref'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Number of pieces
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['number-of-pieces'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Number of packages
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['number-of-packages'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Mark or number added
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['mark-or-number'] == "item_mark_or_number") %}
+                  Yes
+                  {% else %}
+                  No
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              {% if (data['mark-or-number'] == "item_mark_or_number") %}
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    Mark or number
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ data['more-detail-mark-number'] }}
+                  </dd>
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="carrier_eori">
+                      Change<span class="govuk-visually-hidden"> name</span>
+                    </a>
+                  </dd>
+                </div>
+              {% endif %}
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Documents added
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['add-doc'] == "item_what_doc_type") %}
+                  Yes
+                  {% else %}
+                  No
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Type of document
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['goods-transport-reference-types'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Document reference number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['document-reference-number'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Item classed as dangerous
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {% if (data['item-dangerous'] == "item_what_dangerous_goods") %}
+                  Yes
+                  {% else %}
+                  No
+                  {% endif %}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+              {% if (data['item-dangerous'] == "item_what_dangerous_goods") %}
+                <div class="govuk-summary-list__row">
+                  <dt class="govuk-summary-list__key">
+                    UN dangerous code
+                  </dt>
+                  <dd class="govuk-summary-list__value">
+                    {{ data['un-dangerous-codes'] }}
+                  </dd>
+                  <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="carrier_eori">
+                      Change<span class="govuk-visually-hidden"> name</span>
+                    </a>
+                  </dd>
+                </div>
+              {% endif %}
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Consignor
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['item-consignor-eori'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Consignee
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['item-consignee-eori'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+
+
+
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  Payment method
+                </dt>
+                <dd class="govuk-summary-list__value">
+                  {{ data['paid-option'] }}
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                  <a class="govuk-link" href="carrier_eori">
+                    Change<span class="govuk-visually-hidden"> name</span>
+                  </a>
+                </dd>
+              </div>
+            </dl>
+<!--
+            <h2 class="govuk-heading-m">Save your answers</h2>
+
+            <p class="govuk-body">Your answers must be as accurate and complete as you can make them. </p> -->
+
+            <button class="govuk-button" data-module="govuk-button">
+              Save and continue
+            </button>
+          </form>
+          </div>
+          </div>
+      </main>
+    </div>
+  </div>
+
+
+
+{% endblock %}
